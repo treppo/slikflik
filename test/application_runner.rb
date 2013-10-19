@@ -16,7 +16,7 @@ class ApplicationRunner
     SlikFlik
   end
 
-  def links_movies movie_1, movie_2
+  def submit_movies movie_1, movie_2
     post '/link', from: movie_1, to: movie_2
   end
 

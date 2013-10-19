@@ -8,10 +8,10 @@ describe 'Slik Flik' do
   end
 
   it 'shows a result based on a prior connection' do
-    @app.links_movies 550, 120
+    @app.submit_movies 550, 120
     # no result yet
 
-    @app.links_movies 550, 600
+    @app.submit_movies 550, 600
     @app.shows_result 120.to_s
   end
 
