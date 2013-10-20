@@ -8,5 +8,6 @@ gem 'foreman'
 gem 'unicorn'
 gem 'rake'
 
+gem 'coveralls', require: false
 gem 'minitest'
 gem "rack-test", require: "rack/test"
