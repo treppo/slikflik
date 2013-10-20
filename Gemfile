@@ -7,6 +7,7 @@ gem 'slim'
 gem 'foreman'
 gem 'rake'
 
-gem 'coveralls', require: false
+gem 'coveralls'
+gem 'simplecov'
 gem 'minitest'
 gem "rack-test", require: "rack/test"
