@@ -5,7 +5,6 @@ gem 'neography'
 gem 'slim'
 
 gem 'foreman'
-gem 'unicorn'
 gem 'rake'
 
 gem 'coveralls', require: false
