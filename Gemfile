@@ -10,6 +10,7 @@ end
 
 group :development do
   gem 'guard'
+  gem 'guard-minitest'
 end
 
 group :development, :test do
