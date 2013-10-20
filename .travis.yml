@@ -8,4 +8,4 @@ rvm:
 services:
   - neo4j
 
-bundler_args: --without production
+bundler_args: --without production development
