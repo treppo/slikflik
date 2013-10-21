@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'application_runner'
+require_relative 'application_runner'
 
 describe 'Slik Flik' do
 

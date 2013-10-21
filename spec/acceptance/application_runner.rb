@@ -1,4 +1,4 @@
-require_relative '../slikflik'
+require_relative '../../slikflik'
 require 'minitest/assertions'
 require 'rack/test'
 
