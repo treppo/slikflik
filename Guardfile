@@ -1,7 +1,7 @@
 notification :tmux, display_message: true
 
 guard :minitest do
-  watch('slikflik.rb') { 'test/acceptance_test.rb' }
-  watch(%r{^test/(.*)\/?(.*)_test\.rb})
-  watch(%r{^test/test_helper\.rb}) { 'test' }
+  watch('slikflik.rb') { 'spec/slikflik_spec.rb' }
+  watch(%r{^spec/(.*)\/?(.*)_spec\.rb})
+  watch(%r{^spec/spec_helper\.rb}) { 'spec' }
 end
