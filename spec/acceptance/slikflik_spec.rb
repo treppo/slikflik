@@ -12,7 +12,7 @@ describe 'Slik Flik' do
     # no result yet
 
     @app.submit_movies [550, 600]
-    @app.shows_result 120.to_s
+    @app.shows_result? 120
   end
 
 end

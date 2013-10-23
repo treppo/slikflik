@@ -22,4 +22,6 @@ group :test do
   gem 'simplecov'
   gem 'minitest'
   gem "rack-test", require: "rack/test"
+  gem 'capybara'
+  gem 'capybara_minitest_spec'
 end

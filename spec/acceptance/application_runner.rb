@@ -1,10 +1,15 @@
 require_relative '../../slikflik'
 require 'minitest/assertions'
-require 'rack/test'
+
+require 'capybara'
+require 'capybara/dsl'
+require 'capybara_minitest_spec'
 
 class ApplicationRunner
   include Minitest::Assertions
-  include Rack::Test::Methods
+  include Capybara::DSL
+
+  Capybara.app = SlikFlik.new
 
   attr_accessor :assertions
 
@@ -12,15 +17,14 @@ class ApplicationRunner
     @assertions = 0
   end
 
-  def app
-    SlikFlik
-  end
-
   def submit_movies movies
-    post '/ideas', movies: movies
+    visit '/'
+    fill_in 'First Movie', with: movies[0]
+    fill_in 'Second Movie', with: movies[1]
+    click_on 'Find'
   end
 
-  def shows_result movie
-    assert_includes last_response.body, movie
+  def shows_result? movie
+    page.must_have_content movie.to_s
   end
 end
