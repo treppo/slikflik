@@ -13,6 +13,5 @@ class SlikFlik < Sinatra::Base
 
   post '/ideas' do
     Movies.connect params[:movies]
-    Ideas.find params[:movies]
   end
 end
