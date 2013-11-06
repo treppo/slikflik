@@ -8,10 +8,15 @@ require 'ideas'
 
 class SlikFlik < Sinatra::Base
   get '/' do
-    slim :index
+    slim :landing
   end
 
   post '/ideas' do
     Movies.connect params[:movies]
+    redirect to "/ideas?movies[]=#{params[:movies][0]}&movies[]=#{params[:movies][1]}"
+  end
+
+  get '/ideas' do
+    slim :index, locals: { ideas: [] }
   end
 end
