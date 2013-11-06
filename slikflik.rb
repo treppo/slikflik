@@ -4,7 +4,6 @@ require 'neography'
 require 'slim'
 
 require 'movies'
-require 'ideas'
 
 class SlikFlik < Sinatra::Base
   get '/' do
@@ -12,7 +11,6 @@ class SlikFlik < Sinatra::Base
   end
 
   post '/ideas' do
-    Movies.connect params[:movies]
     redirect to "/ideas?movies[]=#{params[:movies][0]}&movies[]=#{params[:movies][1]}"
   end
 

@@ -1,5 +1,6 @@
 class Movies
-  def self.connect movies
+
+  def self.create ids
 
   end
 end
