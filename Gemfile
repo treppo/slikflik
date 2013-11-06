@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'neography'
 gem 'slim'
-gem 'oj'
+gem 'oj', platforms: :ruby
 
 group :production, :development do
   gem 'foreman'
