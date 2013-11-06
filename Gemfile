@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'neography'
 gem 'slim'
+gem 'oj'
 
 group :production, :development do
   gem 'foreman'
@@ -11,6 +12,7 @@ end
 group :development do
   gem 'guard'
   gem 'guard-minitest'
+  gem 'guard-bundler'
 end
 
 group :development, :test do

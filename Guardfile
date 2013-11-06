@@ -7,3 +7,7 @@ guard :minitest do
   watch(%r{^spec/(.*)\/?(.*)_spec\.rb})
   watch(%r{^spec/spec_helper\.rb}) { 'spec' }
 end
+
+guard 'bundler' do
+  watch('Gemfile')
+end
