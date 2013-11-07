@@ -21,4 +21,8 @@ class DatabaseConnection
   def nodes_count
     db.execute_query("START n = node(*) RETURN count(*)")['data'].first.first
   end
+
+  def get_node_property node, property
+    db.get_node_properties(node, [property])[property]
+  end
 end

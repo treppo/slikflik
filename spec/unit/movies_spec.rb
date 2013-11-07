@@ -24,6 +24,12 @@ describe Movies do
     subject.create(movie_ids).length.must_equal 2
   end
 
+  it 'creates movie nodes with an id property' do
+    node_1, node_2 = subject.create(movie_ids)
+
+    database.get_node_property(node_1, 'id').must_equal 1
+  end
+
   it 'creates unique movie nodes' do
     database.nodes_count.must_equal 1 # root node is always there
 

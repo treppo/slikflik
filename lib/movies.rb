@@ -24,7 +24,7 @@ class Movies
       index_name = 'movies'
       key = 'id'
       unique_value = movie_id
-      database.create_unique_node index_name, key, unique_value
+      database.create_unique_node index_name, key, unique_value, id: movie_id
     end
   end
 end
