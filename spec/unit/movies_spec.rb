@@ -6,12 +6,12 @@ describe Movies do
 
   subject { Movies }
 
-  def ids
+  def movie_ids
     [1, 2]
   end
 
   def database
-    DatabaseConnection.new
+    @database ||= DatabaseConnection.new
   end
 
   before do
@@ -20,10 +20,15 @@ describe Movies do
 
   it { subject.must_respond_to :create }
 
-  it 'creates nodes in the database' do
-    database.nodes_count.must_equal 1 # root node
+  it 'creates movie nodes in the database' do
+    subject.create(movie_ids).length.must_equal 2
+  end
 
-    subject.create ids
+  it 'creates unique movie nodes' do
+    database.nodes_count.must_equal 1 # root node is always there
+
+    subject.create movie_ids
+    subject.create movie_ids
 
     database.nodes_count.must_equal 3
   end
