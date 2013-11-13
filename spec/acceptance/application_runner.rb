@@ -24,7 +24,8 @@ class ApplicationRunner
     click_on 'Find'
   end
 
-  def shows_result? movie
-    page.must_have_content movie.to_s
+  def shows_result? id, title
+    page.must_have_content id.to_s
+    page.must_have_content title.to_s
   end
 end
