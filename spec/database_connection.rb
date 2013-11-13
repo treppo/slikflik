@@ -22,7 +22,15 @@ class DatabaseConnection
     db.execute_query("START n = node(*) RETURN count(*)")['data'].first.first
   end
 
-  def get_node_property node, property
+  def get_node_property node, property = nil
     db.get_node_properties(node, [property])[property]
+  end
+
+  def find_movies ids
+    ids.map { |id| find_movie id }
+  end
+
+  def find_movie id
+    get_node_property db.get_node_index('movies', 'id', id), 'id'
   end
 end

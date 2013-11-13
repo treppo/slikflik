@@ -3,7 +3,7 @@ require 'sinatra/base'
 require 'neography'
 require 'slim'
 
-require 'movies'
+require 'movie_net'
 
 class SlikFlik < Sinatra::Base
   get '/' do

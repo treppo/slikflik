@@ -8,10 +8,14 @@ Neography.configure do |config|
 end
 
 
-class Movies
+class MovieNet
   class << self
     def create movie_ids
       movie_ids.map { |id| create_unique_node id }
+    end
+
+    def connect nodes
+
     end
 
     private
