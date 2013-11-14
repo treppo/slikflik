@@ -12,3 +12,8 @@ Coveralls.wear!
 
 require 'minitest/pride'
 require 'minitest/autorun'
+
+# support test sharing through modules
+class Module
+  include Minitest::Spec::DSL
+end
