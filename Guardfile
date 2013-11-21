@@ -1,4 +1,4 @@
-notification :tmux, display_message: true
+notification :tmux
 
 guard :minitest, cli: '--verbose', include: ['lib', 'spec'] do
   watch('slikflik.rb') { 'spec/acceptance/slikflik_spec.rb' }
