@@ -1,6 +1,6 @@
 notification :tmux, display_message: true
 
-guard :minitest do
+guard :minitest, cli: '--verbose', include: ['lib', 'spec'] do
   watch('slikflik.rb') { 'spec/acceptance/slikflik_spec.rb' }
   watch('spec/acceptance/application_runner.rb') { 'spec/acceptance/slikflik_spec.rb' }
   watch(%r{^lib/(.+)\.rb}) { |m| "spec/unit/#{m[1]}_spec.rb" }

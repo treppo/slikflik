@@ -53,6 +53,7 @@ GEM
     mime-types (2.0)
     mini_portile (0.5.2)
     minitest (5.0.8)
+    minitest-spec-context (0.0.3)
     multi_json (1.8.2)
     neography (1.2.3)
       httpclient (>= 2.3.3)
@@ -124,6 +125,7 @@ DEPENDENCIES
   guard-bundler
   guard-minitest
   minitest
+  minitest-spec-context
   neography
   oj
   rack-test

@@ -23,6 +23,7 @@ group :test do
   gem 'coveralls'
   gem 'simplecov'
   gem 'minitest'
+  gem 'minitest-spec-context'
   gem "rack-test", require: "rack/test"
   gem 'capybara'
   gem 'capybara_minitest_spec'
