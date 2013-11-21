@@ -1,20 +1,10 @@
 require 'spec_helper'
 require 'movie_fetcher'
 require 'interfaces/fetcher'
-require 'interfaces/movie_repository'
-require 'interfaces/encyclopedia_lookup'
+require 'doubles/movie_repository'
+require 'interfaces/lookup'
 
-class MovieRepositoryDouble
-  def initialize response = nil
-    @response = response
-  end
-
-  def find
-    @response
-  end
-end
-
-class EncyclopediaLookupDouble
+class LookupDouble
   def initialize args = {}
     @ids = args.fetch :ids, []
   end
@@ -24,19 +14,11 @@ class EncyclopediaLookupDouble
   end
 end
 
-describe EncyclopediaLookupDouble do
-  include EncyclopediaLookupInterfaceTest
+describe LookupDouble do
+  include LookupInterfaceTest
 
   before do
-    @subject = EncyclopediaLookupDouble.new
-  end
-end
-
-describe MovieRepositoryDouble do
-  include MovieRepositoryInterfaceTest
-
-  before do
-    @subject = MovieRepositoryDouble.new
+    @subject = LookupDouble.new
   end
 end
 
@@ -55,9 +37,9 @@ describe MovieFetcher do
   end
 
   before do
-    @lookup_class = EncyclopediaLookupDouble
-    @repo = MovieRepositoryDouble.new repo_response
-    @subject = MovieFetcher.new encyclopedia_lookup_class: @lookup_class, repository: @repo
+    @lookup_class = LookupDouble
+    @repo = RepositoryDouble.new repo_response
+    @subject = MovieFetcher.new lookup_class: @lookup_class, repository: @repo
   end
 
   context 'all movies are found' do

@@ -2,7 +2,7 @@ class MovieFetcher
 
   def initialize args
     @repository = args.fetch :repository
-    @lookup = args.fetch :encyclopedia_lookup_class
+    @lookup = args.fetch :lookup_class
   end
 
   def movies
