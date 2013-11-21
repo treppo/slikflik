@@ -1,28 +1,28 @@
 require 'spec_helper'
 require 'movies'
-
-module FetcherInterfaceTest
-
-  it 'responds to fetch' do
-    @subject.must_respond_to :fetch
-  end
-end
+require 'interfaces/fetcher'
 
 class FetcherDouble
-  include FetcherInterfaceTest
 
-  def fetch
+  def movies
     ['movie1', 'movie2']
   end
 end
 
+describe FetcherDouble do
+  include FetcherInterfaceTest
+
+  before do
+    @subject = FetcherDouble.new
+  end
+end
+
 describe Movies do
-  include MoviesInterfaceTest
 
   before do
     @fetcher = FetcherDouble.new
-    @db = Minitest::Mock.new
-    @subject = Movies.new ids: [1, 2], fetcher: @fetcher, db: @db
+    @repository = Minitest::Mock.new
+    @subject = Movies.new ids: [1, 2], fetcher: @fetcher, repository: @repository
   end
 
   it 'responds to connect' do
@@ -30,10 +30,10 @@ describe Movies do
   end
 
   it 'fetches movies and connects them' do
-    @db.expect :connect, true, [['movie1', 'movie2']]
+    @repository.expect :connect, true, [['movie1', 'movie2']]
 
     @subject.connect
 
-    @db.verify
+    @repository.verify
   end
 end

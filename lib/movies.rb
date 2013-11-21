@@ -2,15 +2,15 @@ class Movies
 
   def initialize args
     @ids = args.fetch :ids
-    @db = args.fetch :db || DatabaseConnection.new
-    @fetcher = args.fetch :fetcher || Fetcher.new(ids: @ids, db: @db)
+    @repository = args.fetch :repository || DatabaseConnection.new(@ids)
+    @fetcher = args.fetch :fetcher || MoviesFetcher.new(repository: @repository)
   end
 
   def connect
-    db.connect fetcher.fetch
+    repository.connect fetcher.movies
   end
 
   private
 
-  attr_reader :fetcher, :db
+  attr_reader :fetcher, :repository
 end
