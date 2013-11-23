@@ -3,7 +3,7 @@ require 'sinatra/base'
 require 'neography'
 require 'slim'
 
-require 'movie_net'
+require 'movies'
 
 class SlikFlik < Sinatra::Base
   get '/' do
@@ -11,10 +11,17 @@ class SlikFlik < Sinatra::Base
   end
 
   post '/ideas' do
+    Movies.new(ids: submitted_movies).connect
     redirect to "/ideas?movies[]=#{params[:movies][0]}&movies[]=#{params[:movies][1]}"
   end
 
   get '/ideas' do
     slim :index, locals: { ideas: [] }
+  end
+
+  private
+
+  def submitted_movies
+    params[:movies]
   end
 end
