@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'movie_net'
-require 'database_connection'
+require 'test_database_connection'
 
 describe MovieNet do
 
@@ -11,7 +11,7 @@ describe MovieNet do
   end
 
   def database
-    @database ||= DatabaseConnection.new
+    @database ||= TestDatabaseConnection.new
   end
 
   before do

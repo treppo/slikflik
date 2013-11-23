@@ -7,7 +7,7 @@ Neography.configure do |config|
   config.port = database_config['port']
 end
 
-class DatabaseConnection
+class TestDatabaseConnection
   attr_reader :db
 
   def initialize
