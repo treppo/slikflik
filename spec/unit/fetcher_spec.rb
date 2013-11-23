@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'movie_fetcher'
+require 'fetcher'
 require 'interfaces/fetcher'
-require 'doubles/movie_repository'
+require 'doubles/repository'
 require 'interfaces/lookup'
 
 class LookupDouble
@@ -22,7 +22,7 @@ describe LookupDouble do
   end
 end
 
-describe MovieFetcher do
+describe Fetcher do
   include FetcherInterfaceTest
 
   def ids
@@ -39,7 +39,7 @@ describe MovieFetcher do
   before do
     @lookup_class = LookupDouble
     @repo = RepositoryDouble.new repo_response
-    @subject = MovieFetcher.new lookup_class: @lookup_class, repository: @repo
+    @subject = Fetcher.new lookup_class: @lookup_class, repository: @repo
   end
 
   context 'all movies are found' do

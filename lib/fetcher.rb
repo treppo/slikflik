@@ -1,8 +1,10 @@
-class MovieFetcher
+require 'lookup'
+
+class Fetcher
 
   def initialize args
     @repository = args.fetch :repository
-    @lookup = args.fetch :lookup_class
+    @lookup = args.fetch :lookup_class, Lookup
   end
 
   def movies
