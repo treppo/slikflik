@@ -39,7 +39,7 @@ describe Fetcher do
   before do
     @lookup_class = LookupDouble
     @repo = RepositoryDouble.new repo_response
-    @subject = Fetcher.new lookup_class: @lookup_class, repository: @repo
+    @subject = Fetcher.new lookup_class: @lookup_class, repository: @repo, ids: ids
   end
 
   context 'all movies are found' do

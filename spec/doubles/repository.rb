@@ -3,7 +3,7 @@ class RepositoryDouble
     @response = response
   end
 
-  def find
+  def find ids
     @response
   end
 

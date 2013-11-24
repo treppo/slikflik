@@ -1,9 +1,12 @@
+require 'encyclopedia'
+require 'repository'
+
 class Lookup
 
   def initialize args
     @ids = args.fetch :ids
-    @repository = args.fetch :repository || Repository.new
-    @encyclopedia = args.fetch :encyclopedia || Encyclopedia.new
+    @repository = args.fetch :repository, Repository.new
+    @encyclopedia = args.fetch :encyclopedia, Encyclopedia.new
   end
 
   def entries

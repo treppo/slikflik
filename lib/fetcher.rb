@@ -4,6 +4,7 @@ class Fetcher
 
   def initialize args
     @repository = args.fetch :repository
+    @ids = args.fetch :ids
     @lookup = args.fetch :lookup_class, Lookup
   end
 
@@ -13,7 +14,7 @@ class Fetcher
 
   private
 
-  attr_reader :repository, :lookup
+  attr_reader :repository, :lookup, :ids
 
   def found
     response.fetch :found
@@ -28,6 +29,6 @@ class Fetcher
   end
 
   def response
-    @_response ||= repository.find
+    @_response ||= repository.find ids
   end
 end

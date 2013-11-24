@@ -5,8 +5,8 @@ class Movies
 
   def initialize args
     @ids = args.fetch :ids
-    @repository = args.fetch :repository, Repository.new(@ids)
-    @fetcher = args.fetch :fetcher, Fetcher.new(repository: @repository)
+    @repository = args.fetch :repository, Repository.new
+    @fetcher = args.fetch :fetcher, Fetcher.new(repository: @repository, ids: @ids)
   end
 
   def connect
