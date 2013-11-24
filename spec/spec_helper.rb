@@ -10,6 +10,8 @@ if ENV['CI']
   Coveralls.wear!
 end
 
+require 'vcr_setup'
+
 require 'minitest/pride'
 require 'minitest/autorun'
 require 'minitest-spec-context'

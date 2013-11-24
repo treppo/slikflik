@@ -4,6 +4,8 @@ gem 'sinatra'
 gem 'neography'
 gem 'slim'
 gem 'oj', platforms: :ruby
+gem 'faraday'
+gem 'typhoeus'
 
 group :production, :development do
   gem 'foreman'
@@ -27,4 +29,5 @@ group :test do
   gem "rack-test", require: "rack/test"
   gem 'capybara'
   gem 'capybara_minitest_spec'
+  gem 'vcr'
 end

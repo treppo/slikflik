@@ -8,10 +8,10 @@ describe 'Slik Flik' do
   end
 
   it 'shows a result based on a prior connection' do
-    @app.submit_movies [930, 335]
+    @app.submit_movies [938, 335]
     # no result yet
 
     @app.submit_movies [335, 391]
-    @app.shows_result? 930, 'A Fistful of Dollars'
+    @app.shows_result? 938, 'Per qualche dollaro in più'
   end
 end

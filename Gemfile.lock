@@ -21,6 +21,8 @@ GEM
       thor
     docile (1.1.0)
     dotenv (0.9.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     ffi (1.9.3)
     ffi (1.9.3-java)
     foreman (0.63.0)
@@ -56,6 +58,7 @@ GEM
     minitest (5.0.8)
     minitest-spec-context (0.0.3)
     multi_json (1.8.2)
+    multipart-post (1.2.0)
     neography (1.2.3)
       httpclient (>= 2.3.3)
       json (>= 1.7.7)
@@ -112,6 +115,9 @@ GEM
     tilt (1.4.1)
     timers (1.1.0)
     tins (0.13.1)
+    typhoeus (0.3.3)
+      mime-types
+    vcr (2.8.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -123,6 +129,7 @@ DEPENDENCIES
   capybara
   capybara_minitest_spec
   coveralls
+  faraday
   foreman
   guard
   guard-bundler
@@ -136,3 +143,5 @@ DEPENDENCIES
   simplecov
   sinatra
   slim
+  typhoeus
+  vcr

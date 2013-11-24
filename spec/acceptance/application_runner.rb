@@ -18,10 +18,12 @@ class ApplicationRunner
   end
 
   def submit_movies movies
-    visit '/'
-    fill_in 'First Movie', with: movies[0]
-    fill_in 'Second Movie', with: movies[1]
-    click_on 'Find'
+    VCR.use_cassette 'tmdb_lookup' do
+      visit '/'
+      fill_in 'First Movie', with: movies[0]
+      fill_in 'Second Movie', with: movies[1]
+      click_on 'Find'
+    end
   end
 
   def shows_result? id, title
