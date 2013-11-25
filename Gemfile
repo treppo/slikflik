@@ -5,7 +5,7 @@ gem 'neography'
 gem 'slim'
 gem 'oj', platforms: :ruby
 gem 'faraday'
-gem 'typhoeus'
+gem 'typhoeus', platforms: :ruby
 
 group :production, :development do
   gem 'foreman'
