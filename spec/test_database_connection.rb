@@ -18,11 +18,11 @@ class TestDatabaseConnection
     db.execute_query("START n0=node(0),nx=node(*) MATCH n0-[r0?]-(),nx-[rx?]-() WHERE nx <> n0 DELETE r0,rx,nx")
   end
 
-  def nodes_count
-    db.execute_query("START n = node(*) RETURN count(*)")['data'].first.first
+  def node_count
+    extract_count(db.execute_query("START n = node(*) RETURN count(*)")) - 1
   end
 
-  def get_node_property node, property = nil
+  def get_node_property node, property
     db.get_node_properties(node, [property])[property]
   end
 
@@ -32,5 +32,9 @@ class TestDatabaseConnection
 
   def find_movie id
     get_node_property db.get_node_index('movies', 'id', id), 'id'
+  end
+
+  def extract_count response
+    response['data'].first.first
   end
 end

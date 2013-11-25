@@ -1,8 +1,13 @@
+require 'neography'
+
+database_config = YAML.load_file('config/database.yml')['development']
+
+Neography.configure do |config|
+  config.server = database_config['server']
+  config.port = database_config['port']
+end
+
 class Repository
-
-  def initialize
-
-  end
 
   def find ids
     {
@@ -11,7 +16,21 @@ class Repository
     }
   end
 
-  def create
+  def create movies
+    movies.map { |movie| create_unique_node movie }
+  end
 
+  private
+
+  def database
+    @_db ||= Neography::Rest.new
+  end
+
+  def create_unique_node movie
+    index_name = 'movies'
+    key = 'id'
+    unique_value = movie.id
+    properties = { id: movie.id, title: movie.title }
+    database.create_unique_node index_name, key, unique_value, properties
   end
 end
