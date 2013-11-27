@@ -10,10 +10,8 @@ end
 class Repository
 
   def find ids
-    {
-      found: [],
-      missing: ids
-    }
+    empty_response = { found: [], missing: [] }
+    ids.zip(nodes(ids)).inject(empty_response, &build_response)
   end
 
   def create movies
@@ -27,6 +25,17 @@ class Repository
   end
 
   private
+
+  def build_response
+    -> (response, (id, node)) do
+      node.nil? ? response[:missing] << id : response[:found] << node
+      response
+    end
+  end
+
+  def nodes ids
+    ids.flat_map { |id| database.find_node_index 'movies', 'id', id }
+  end
 
   def increase_weight relationship
     set_weight relationship, get_weight(relationship) + 1

@@ -47,11 +47,20 @@ describe Repository do
     database.get_node_property(node_2, 'title').must_equal 'title2'
   end
 
-  context 'there are no matching nodes in the database' do
+  context 'when searching for a movie' do
     it 'returns the ids of the missing movies' do
       @subject.find(ids).must_equal({
         found: [],
         missing: ids
+      })
+    end
+
+    it 'returns the found nodes' do
+      nodes = @subject.create movies
+
+      @subject.find(ids).must_equal({
+        found: nodes,
+        missing: []
       })
     end
   end
