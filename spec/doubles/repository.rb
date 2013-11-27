@@ -9,5 +9,8 @@ class RepositoryDouble
 
   def create
   end
+
+  def connect
+  end
 end
 

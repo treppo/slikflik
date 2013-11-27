@@ -22,8 +22,16 @@ class TestDatabaseConnection
     extract_count(db.execute_query("START n = node(*) RETURN count(*)")) - 1
   end
 
+  def relationship_count
+    extract_count(db.execute_query("START n = node(*) MATCH (n)-[r]->() RETURN count(*)"))
+  end
+
   def get_node_property node, property
     db.get_node_properties(node, [property])[property]
+  end
+
+  def get_relationship_property rel, property
+    db.get_relationship_properties(rel, [property])[property]
   end
 
   def find_movies ids

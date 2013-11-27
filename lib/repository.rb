@@ -20,7 +20,37 @@ class Repository
     movies.map { |movie| create_unique_node movie }
   end
 
+  def connect nodes
+    increase_weight relationship nodes
+
+    relationship nodes
+  end
+
   private
+
+  def increase_weight relationship
+    set_weight relationship, get_weight(relationship) + 1
+  end
+
+  def relationship nodes
+    @_relationship ||= find_relationship(nodes) || create_relationship(nodes)
+  end
+
+  def find_relationship nodes
+    database.get_node_relationships_to(*nodes)
+  end
+
+  def create_relationship nodes
+    database.create_relationship 'connection', *nodes, weight: 0
+  end
+
+  def get_weight relationship
+    database.get_relationship_properties(relationship, 'weight')['weight']
+  end
+
+  def set_weight relationship, weight
+    database.set_relationship_properties relationship, weight: weight
+  end
 
   def database
     @_db ||= Neography::Rest.new
