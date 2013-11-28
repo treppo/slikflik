@@ -8,6 +8,7 @@ gem 'faraday'
 gem 'typhoeus', platforms: :ruby
 gem 'rubysl', platforms: :rbx
 gem 'racc', platforms: :rbx
+gem 'rubinius-coverage', platforms: :rbx
 
 group :production, :development do
   gem 'foreman'

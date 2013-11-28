@@ -94,6 +94,7 @@ GEM
       ffi (>= 0.5.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rubinius-coverage (2.0.3)
     rubysl (2.0.15)
       rubysl-abbrev (~> 2.0)
       rubysl-base64 (~> 2.0)
@@ -345,6 +346,7 @@ DEPENDENCIES
   racc
   rack-test
   rake
+  rubinius-coverage
   rubysl
   simplecov
   sinatra
