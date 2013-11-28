@@ -4,6 +4,7 @@ require 'neography'
 require 'slim'
 
 require 'movies'
+require 'ideas'
 
 class SlikFlik < Sinatra::Base
   get '/' do
@@ -16,7 +17,7 @@ class SlikFlik < Sinatra::Base
   end
 
   get '/ideas' do
-    slim :index, locals: { ideas: [] }
+    slim :index, locals: { ideas: Ideas.new(ids: submitted_movies).find }
   end
 
   private
