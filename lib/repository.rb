@@ -11,7 +11,7 @@ class Repository
 
   def find ids
     empty_response = { found: [], missing: [] }
-    ids.zip(nodes(ids)).inject(empty_response, &build_response)
+    ids.zip(nodes(ids)).inject(empty_response, &divide_found_and_missing)
   end
 
   def create movies
@@ -26,7 +26,7 @@ class Repository
 
   private
 
-  def build_response
+  def divide_found_and_missing
     ->(response, (id, node)) do
       node.nil? ? response[:missing] << id : response[:found] << node
       response
