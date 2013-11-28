@@ -6,6 +6,8 @@ gem 'slim'
 gem 'oj', platforms: :ruby
 gem 'faraday'
 gem 'typhoeus', platforms: :ruby
+gem 'rubysl', platforms: :rbx
+gem 'racc', platforms: :rbx
 
 group :production, :development do
   gem 'foreman'

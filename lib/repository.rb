@@ -27,7 +27,7 @@ class Repository
   private
 
   def build_response
-    -> (response, (id, node)) do
+    ->(response, (id, node)) do
       node.nil? ? response[:missing] << id : response[:found] << node
       response
     end
