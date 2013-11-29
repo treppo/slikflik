@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'repository'
 require 'interfaces/repository'
-require 'test_database_connection'
 require 'movie'
+require 'ducktypes/graph'
 
 describe Repository do
 
@@ -15,40 +15,21 @@ describe Repository do
     Movie.new(id: 2, title: 'title2')
   ] }
 
-  def database
-    @_database ||= TestDatabaseConnection.new
-  end
-
   before do
-    database.reset
-    @subject = Repository.new
+    @graph = Quacky.mock :graph, GraphDucktype
+    @subject = Repository.new graph: @graph
   end
 
   it 'creates movie nodes in the database and returns them' do
-    nodes = @subject.create movies
+    expected = ['node1', 'node2']
+    @graph.stub :add, expected
 
-    nodes.length.must_equal 2
-    database.node_count.must_equal 2
-  end
-
-  it 'creates unique nodes' do
-    @subject.create movies
-    @subject.create movies
-
-    database.node_count.must_equal 2
-  end
-
-  it 'creates movie nodes with an id and a title property' do
-    node_1, node_2 = @subject.create movies
-
-    database.get_node_property(node_1, 'id').must_equal 1
-    database.get_node_property(node_1, 'title').must_equal 'title1'
-    database.get_node_property(node_2, 'id').must_equal 2
-    database.get_node_property(node_2, 'title').must_equal 'title2'
+    @subject.create(movies).must_equal expected
   end
 
   context 'when searching for a movie' do
     it 'returns the ids of the missing movies' do
+      @graph.stub :get_nodes, [nil, nil]
       @subject.find(ids).must_equal({
         found: [],
         missing: ids
@@ -56,10 +37,11 @@ describe Repository do
     end
 
     it 'returns the found nodes' do
-      nodes = @subject.create movies
+      expected = ['node1', 'node2']
+      @graph.stub :get_nodes, expected
 
       @subject.find(ids).must_equal({
-        found: nodes,
+        found: expected,
         missing: []
       })
     end
@@ -67,39 +49,30 @@ describe Repository do
 
   context 'there is no prior connection between two nodes' do
     it 'connects the nodes' do
-      nodes = @subject.create movies
+      nodes = ['node1', 'node2']
+
+      @graph.expect :connect, 'connection', [nodes]
 
       @subject.connect nodes
-
-      database.relationship_count.must_equal 1
-    end
-
-    it 'creates unique connections' do
-      nodes = @subject.create movies
-
-      @subject.connect nodes
-      @subject.connect nodes
-
-      database.relationship_count.must_equal 1
-    end
-
-    it 'sets the weight to 1' do
-      nodes = @subject.create movies
-
-      relationship = @subject.connect nodes
-
-      database.get_relationship_property(relationship, 'weight').must_equal 1
     end
   end
 
   context 'there is a connection already' do
-    it 'increases the weight of the connection' do
-      nodes = @subject.create movies
+    it 'gets the connection' do
+      nodes = ['node1', 'node2']
+
+      @graph.expect :get_connection, 'connection', [nodes]
 
       @subject.connect nodes
-      relationship = @subject.connect nodes
-
-      database.get_relationship_property(relationship, 'weight').must_equal 2
     end
+  end
+
+  it 'increases the connections weight' do
+    nodes = ['node1', 'node2']
+    @graph.stub :connect, 'connection', [nodes]
+
+    @graph.expect :increase_weight, nil, ['connection']
+
+    @subject.connect nodes
   end
 end

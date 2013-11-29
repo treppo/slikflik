@@ -8,35 +8,50 @@ end
 
 class Graph
 
-  def get_node id
-    database.find_node_index 'movies', 'id', id
+  def get_nodes ids
+    ids.flat_map(&get_node)
   end
 
-  def find_relationship nodes
+  def get_connection nodes
     database.get_node_relationships_to(*nodes)
   end
 
-  def create_relationship nodes
+  def connect nodes
     database.create_relationship 'connection', *nodes, weight: 0
   end
 
-  def get_weight relationship
-    database.get_relationship_properties(relationship, 'weight')['weight']
+  def increase_weight connection
+    set_weight connection, get_weight(connection) + 1
   end
 
-  def set_weight relationship, weight
-    database.set_relationship_properties relationship, weight: weight
-  end
-
-  def create_unique_node movie
-    index_name = 'movies'
-    key = 'id'
-    unique_value = movie.id
-    properties = { id: movie.id, title: movie.title }
-    database.create_unique_node index_name, key, unique_value, properties
+  def add units
+    units.map(&create_unique_node)
   end
 
   private
+
+  def get_node
+    ->(id) do
+      database.find_node_index 'movies', 'id', id
+    end
+  end
+
+  def get_weight connection
+    database.get_relationship_properties(connection, 'weight')['weight']
+  end
+
+  def set_weight connection, weight
+    database.set_relationship_properties connection, weight: weight
+  end
+
+  def create_unique_node
+    ->(unit) do
+      index_name = 'movies'
+      key = 'id'
+      unique_value = unit.fetch :id
+      database.create_unique_node index_name, key, unique_value, unit
+    end
+  end
 
   def database
     @_db ||= Neography::Rest.new

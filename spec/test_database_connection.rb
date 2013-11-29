@@ -8,7 +8,12 @@ Neography.configure do |config|
 end
 
 class TestDatabaseConnection
+
+  extend Forwardable
+
   attr_reader :db
+
+  def_delegators :db, :create_nodes
 
   def initialize
     @db = Neography::Rest.new
@@ -36,10 +41,6 @@ class TestDatabaseConnection
 
   def find_movies ids
     ids.map { |id| find_movie id }
-  end
-
-  def find_movie id
-    get_node_property db.get_node_index('movies', 'id', id), 'id'
   end
 
   def extract_count response

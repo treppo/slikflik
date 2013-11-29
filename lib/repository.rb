@@ -2,23 +2,21 @@ require 'graph'
 
 class Repository
 
-  def initialize
-    @graph = Graph.new
+  def initialize args = {}
+    @graph = args.fetch :graph, Graph.new
   end
 
   def find ids
     empty_response = { found: [], missing: [] }
-    ids.zip(nodes(ids)).inject(empty_response, &divide_found_and_missing)
+    ids.zip(get_nodes(ids)).inject(empty_response, &divide_found_and_missing)
   end
 
   def create movies
-    movies.map { |movie| graph.create_unique_node movie }
+    graph.add movies.map(&:to_h)
   end
 
   def connect nodes
-    increase_weight relationship nodes
-
-    relationship nodes
+    graph.increase_weight connection nodes
   end
 
   private
@@ -32,15 +30,11 @@ class Repository
     end
   end
 
-  def nodes ids
-    ids.flat_map { |id| graph.get_node id }
+  def get_nodes ids
+    graph.get_nodes ids
   end
 
-  def increase_weight relationship
-    graph.set_weight relationship, graph.get_weight(relationship) + 1
-  end
-
-  def relationship nodes
-    @_relationship ||= graph.find_relationship(nodes) || graph.create_relationship(nodes)
+  def connection nodes
+    @_connection ||= graph.get_connection(nodes) || graph.connect(nodes)
   end
 end
