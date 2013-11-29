@@ -15,6 +15,7 @@ require 'vcr_setup'
 require 'minitest/pride'
 require 'minitest/autorun'
 require 'minitest-spec-context'
+require 'quacky'
 
 # support test sharing through modules
 class Module
