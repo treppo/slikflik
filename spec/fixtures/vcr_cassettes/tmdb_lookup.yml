@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.themoviedb.org/3/movie/938?api_key=<TMDB_API_KEY>
+    uri: https://api.themoviedb.org/3/movie/938?api_key=12345
     body:
       encoding: US-ASCII
       string: ''
@@ -86,7 +86,7 @@ http_interactions:
   recorded_at: Thu, 28 Nov 2013 23:13:35 GMT
 - request:
     method: get
-    uri: https://api.themoviedb.org/3/movie/335?api_key=<TMDB_API_KEY>
+    uri: https://api.themoviedb.org/3/movie/335?api_key=12345
     body:
       encoding: US-ASCII
       string: ''
@@ -177,7 +177,7 @@ http_interactions:
   recorded_at: Thu, 28 Nov 2013 23:13:35 GMT
 - request:
     method: get
-    uri: https://api.themoviedb.org/3/movie/938?api_key=<TMDB_API_KEY>
+    uri: https://api.themoviedb.org/3/movie/938?api_key=12345
     body:
       encoding: US-ASCII
       string: ''
@@ -261,7 +261,7 @@ http_interactions:
   recorded_at: Thu, 28 Nov 2013 23:13:36 GMT
 - request:
     method: get
-    uri: https://api.themoviedb.org/3/movie/335?api_key=<TMDB_API_KEY>
+    uri: https://api.themoviedb.org/3/movie/335?api_key=12345
     body:
       encoding: US-ASCII
       string: ''
@@ -352,7 +352,7 @@ http_interactions:
   recorded_at: Thu, 28 Nov 2013 23:13:37 GMT
 - request:
     method: get
-    uri: https://api.themoviedb.org/3/movie/391?api_key=<TMDB_API_KEY>
+    uri: https://api.themoviedb.org/3/movie/391?api_key=12345
     body:
       encoding: US-ASCII
       string: ''

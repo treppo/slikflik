@@ -18,7 +18,7 @@ class ApplicationRunner
   end
 
   def submit_movies movies
-    VCR.use_cassette 'tmdb_lookup' do
+    VCR.use_cassette 'tmdb_lookup', :match_requests_on => [:method, :path] do
       visit '/'
       fill_in 'First Movie', with: movies[0]
       fill_in 'Second Movie', with: movies[1]

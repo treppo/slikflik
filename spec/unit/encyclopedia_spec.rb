@@ -16,7 +16,7 @@ describe Encyclopedia do
   end
 
   it 'looks up entries in the external movie database' do
-    VCR.use_cassette 'tmdb_lookup' do
+    VCR.use_cassette 'tmdb_lookup', :match_requests_on => [:method, :path] do
       entries = @subject.entries(ids)
 
       entries[0].title.must_equal 'For a Few Dollars More'
@@ -25,7 +25,7 @@ describe Encyclopedia do
   end
 
   it 'filters movie properties according to the whitelist' do
-    VCR.use_cassette 'tmdb_lookup' do
+    VCR.use_cassette 'tmdb_lookup', :match_requests_on => [:method, :path] do
       entries = @subject.entries(id)
 
       entries[0].must_respond_to :title

@@ -1,7 +1,7 @@
 require 'neography'
 
 Neography.configure do |config|
-  database_config = YAML.load_file('config/database.yml')['development']
+  database_config = YAML.load_file('config/database.yml')[ENV['RACK_ENV']]
   config.server = database_config['server']
   config.port = database_config['port']
 end
