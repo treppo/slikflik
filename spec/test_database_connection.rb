@@ -23,6 +23,14 @@ class TestDatabaseConnection
     db.execute_query("START n0=node(0),nx=node(*) MATCH n0-[r0?]-(),nx-[rx?]-() WHERE nx <> n0 DELETE r0,rx,nx")
   end
 
+  def setup_index
+    db.create_node_index 'movies'
+  end
+
+  def teardown_index
+    db.drop_node_index 'movies'
+  end
+
   def node_count
     extract_count(db.execute_query("START n = node(*) RETURN count(*)")) - 1
   end

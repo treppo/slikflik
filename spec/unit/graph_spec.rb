@@ -18,8 +18,11 @@ describe Graph do
   end
 
   before do
-    database.reset
     @subject = Graph.new
+  end
+
+  after do
+    database.reset
   end
 
   it 'acts like a graph type' do
