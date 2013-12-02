@@ -1,10 +1,15 @@
 require 'spec_helper'
 require_relative 'application_runner'
+require 'test_database_connection'
 
 describe 'Slik Flik' do
 
   before do
     @app = ApplicationRunner.new
+  end
+
+  after do
+    TestDatabaseConnection.new.reset
   end
 
   it 'shows a result based on a prior connection' do
