@@ -3,6 +3,7 @@ require 'repository'
 require 'interfaces/repository'
 require 'movie'
 require 'ducktypes/graph'
+require 'ducktypes/neighbors_finding'
 
 describe Repository do
 
@@ -19,6 +20,8 @@ describe Repository do
     @graph = Quacky.mock :graph, GraphDucktype
     @subject = Repository.new graph: @graph
   end
+
+  it { assert_quacks_like @subject, NeighborsFinding }
 
   it 'creates movie nodes in the database and returns them' do
     expected = ['node1', 'node2']
@@ -74,5 +77,12 @@ describe Repository do
     @graph.expect :increase_weight, nil, ['connection']
 
     @subject.connect nodes
+  end
+
+  it 'finds neighboring movies and returns them' do
+    neighbors = ['neighbor1', 'neighbor2']
+    @graph.stub :find_neighbors, neighbors, [ids]
+
+    @subject.find_neighbors(movies).must_equal neighbors
   end
 end

@@ -8,5 +8,7 @@ module GraphDucktype
 
   def increase_weight relationship; end
 
-  def add units; end
+  def add movies; end
+
+  def find_neighbors movies; end
 end

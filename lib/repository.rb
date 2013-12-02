@@ -12,11 +12,16 @@ class Repository
   end
 
   def create movies
+    # TODO call properties instead of to_h
     graph.add movies.map(&:to_h)
   end
 
   def connect nodes
     graph.increase_weight connection nodes
+  end
+
+  def find_neighbors movies
+    graph.find_neighbors movies.map(&:id)
   end
 
   private

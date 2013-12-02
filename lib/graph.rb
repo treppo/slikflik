@@ -28,6 +28,16 @@ class Graph
     units.map(&create_unique_node)
   end
 
+  def find_neighbors ids
+    ids.flat_map do |id|
+      database.execute_query("
+        START movie=node:movies(id = '#{id}')
+        MATCH (movie)--(neighbor)
+        RETURN neighbor.id
+      ").fetch('data').flatten
+    end.uniq - ids
+  end
+
   private
 
   def get_node

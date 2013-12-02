@@ -1,12 +1,10 @@
 require 'spec_helper'
 require 'ideas'
 require 'interfaces/findable'
-require 'interfaces/neighbors_finding'
-require 'interfaces/movie_fetching'
+require 'ducktypes/neighbors_finding'
+require 'ducktypes/movie_fetching'
 
 describe Ideas do
-
-  include Quacky::MiniTest::Matchers
 
   before do
     @fetcher = Quacky.double :fetcher, MovieFetching

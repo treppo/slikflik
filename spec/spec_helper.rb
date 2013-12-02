@@ -24,6 +24,10 @@ Minitest.after_run do
   TestDatabaseConnection.new.teardown_index
 end
 
+class Minitest::Spec
+  include Quacky::MiniTest::Matchers
+end
+
 # support test sharing through modules
 class Module
   include Minitest::Spec::DSL
