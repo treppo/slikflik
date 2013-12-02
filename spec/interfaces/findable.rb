@@ -1,6 +1,3 @@
-module FindableInterfaceTest
-
-  it 'responds to find' do
-    @subject.must_respond_to :find
-  end
+module Findable
+  def find; end
 end

@@ -1,18 +1,18 @@
 require 'fetcher'
-require 'neighbors'
+require 'repository'
 
 class Ideas
   def initialize args
     @ids = args.fetch :ids
-    @fetcher = args.fetch :fetcher, Fetcher.new(ids: @ids)
-    @neighbors = args.fetch :neighbors, Neighbors.new
+    @movie_repository = args.fetch :movie_repository, Repository.new
+    @fetcher = args.fetch :fetcher, Fetcher.new(ids: @ids, movie_repository: movie_repository)
   end
 
   def find
-    neighbors.find fetcher.movies
+    movie_repository.find_neighbors fetcher.movies
   end
 
   private
 
-  attr_reader :fetcher, :neighbors
+  attr_reader :fetcher, :movie_repository
 end
