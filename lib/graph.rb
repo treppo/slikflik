@@ -8,59 +8,101 @@ end
 
 class Graph
 
-  def get_nodes ids
-    ids.flat_map(&get_node)
+  def find_movies ids
+    ids.flat_map(&find_movie)
   end
 
-  def get_connection nodes
-    database.get_node_relationships_to(*nodes)
+  def find_connection movies
+    ids = movies.map { |movie| movie.fetch :id }
+    response = find_relationship ids
+
+    return {} if empty_response? response
+
+    properties = symbolize_keys unpack_properties response
+    properties.merge movie_ids: ids
   end
 
-  def connect nodes
-    database.create_relationship 'connection', *nodes, weight: 0
+  def connect movies
+    ids = movies.map { |movie| movie.fetch :id }
+    properties = symbolize_keys unpack_properties database.execute_query "
+      START a=node:movies(id = '#{ids[0]}'),
+            b=node:movies(id = '#{ids[1]}')
+      CREATE a-[r:CONNECTION { weight: 1 }]-b
+      RETURN r
+    "
+
+    properties.merge movie_ids: ids
   end
 
-  def increase_weight connection
-    set_weight connection, get_weight(connection) + 1
+  def update_connection connection
+    relationship = unpack_response find_relationship connection.delete :movie_ids
+
+    database.set_relationship_properties relationship, connection
   end
 
-  def add units
-    units.map(&create_unique_node)
+  def create movies
+    movies.map(&create_unique_node).map(&get_node_properties)
   end
 
   def find_neighbors ids
     ids.flat_map do |id|
-      database.execute_query("
+      unpack_response database.execute_query("
         START movie=node:movies(id = '#{id}')
         MATCH (movie)--(neighbor)
         RETURN neighbor.id
-      ").fetch('data').flatten
-    end.uniq - ids
+      ")
+    end.flatten.uniq - ids
   end
 
   private
 
-  def get_node
+  def find_movie
     ->(id) do
-      database.find_node_index 'movies', 'id', id
+      response = database.find_node_index('movies', 'id', id)
+      return {} if response.nil?
+
+      symbolize_keys unpack_response response.first
     end
-  end
-
-  def get_weight connection
-    database.get_relationship_properties(connection, 'weight')['weight']
-  end
-
-  def set_weight connection, weight
-    database.set_relationship_properties connection, weight: weight
   end
 
   def create_unique_node
-    ->(unit) do
+    ->(movie) do
       index_name = 'movies'
       key = 'id'
-      unique_value = unit.fetch :id
-      database.create_unique_node index_name, key, unique_value, unit
+      unique_value = movie.fetch :id
+      database.create_unique_node index_name, key, unique_value, movie
     end
+  end
+
+  def find_relationship ids
+    database.execute_query "
+      START a=node:movies(id = '#{ids[0]}'),
+            b=node:movies(id = '#{ids[1]}')
+      MATCH a-[r:CONNECTION]-b
+      RETURN r
+    "
+  end
+
+  def get_node_properties
+    ->(node) do
+      symbolize_keys unpack_response node
+    end
+  end
+
+  def symbolize_keys hsh
+    Hash[hsh.map{|(k,v)| [k.to_sym,v]}]
+  end
+
+  def unpack_properties obj
+    unpack_response(obj).flatten.first.fetch('data')
+  end
+
+  def unpack_response obj
+    obj.fetch 'data'
+  end
+
+  def empty_response? response
+    unpack_response(response).empty?
   end
 
   def database

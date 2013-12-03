@@ -15,7 +15,6 @@ describe Graph do
     @_database ||= TestDatabaseConnection.new
   end
 
-
   before do
     @subject = Graph.new
   end
@@ -24,81 +23,68 @@ describe Graph do
     database.reset
   end
 
-  it 'acts like a graph type' do
+  it 'behaves like a graph type' do
     assert_quacks_like @subject, GraphDucktype
   end
 
-  it 'adds movies to the database and returns the nodes' do
-    nodes = @subject.add movies
+  describe 'creating and retrieving movies' do
 
-    nodes.length.must_equal 2
-    database.node_count.must_equal 2
+    it 'returns the movie properties upon creation' do
+      properties = @subject.create movies
+
+      properties.must_equal movies
+    end
+
+    it 'creates unique nodes' do
+      @subject.create movies
+      @subject.create movies
+
+      @subject.find_movies(ids).must_equal movies
+    end
+
+    it 'finds movies' do
+      @subject.create movies
+
+      @subject.find_movies(ids).must_equal movies
+    end
+
+    it 'returns an empty hash when a node does not exist' do
+      @subject.find_movies(ids).must_equal [{}, {}]
+    end
   end
 
-  it 'creates unique nodes' do
-    @subject.add movies
-    @subject.add movies
+  describe 'connections' do
 
-    database.node_count.must_equal 2
-  end
+    before do
+      @subject.create movies
+    end
 
-  it 'creates nodes with all properties' do
-    node_1, node_2 = @subject.add movies
+    it 'returns the connection properties' do
+      properties = @subject.connect movies
 
-    database.get_node_property(node_1, 'id').must_equal 1
-    database.get_node_property(node_1, 'title').must_equal 'title1'
-    database.get_node_property(node_2, 'id').must_equal 2
-    database.get_node_property(node_2, 'title').must_equal 'title2'
-  end
+      properties.must_equal({ movie_ids: ids, weight: 1 })
+    end
 
-  it 'connects nodes' do
-    nodes = @subject.add movies
+    it 'finds the connection and return its properties' do
+      @subject.connect movies
 
-    @subject.connect nodes
+      properties = @subject.find_connection movies
 
-    database.relationship_count.must_equal 1
-  end
+      properties.must_equal({ movie_ids: ids, weight: 1 })
+    end
 
-  it 'sets a zero weight on a new connection' do
-    nodes = @subject.add movies
+    it 'returns an empty hash when a connection does not exist' do
+      @subject.find_connection(movies).must_be_empty
+    end
 
-    connection = @subject.connect nodes
+    it 'increases the weight of the connection' do
+      connection = @subject.connect movies
+      connection[:weight] = 1
 
-    database.get_relationship_property(connection, 'weight').must_equal 0
-  end
+      @subject.update_connection connection
 
-  it 'increases the weight of the connection' do
-    nodes = @subject.add movies
-    connection = @subject.connect nodes
-
-    @subject.increase_weight connection
-
-    database.get_relationship_property(connection, 'weight').must_equal 1
-  end
-
-  it 'gets nodes' do
-    node1 = @subject.add movies
-
-    @subject.get_nodes(ids).must_equal node1
-  end
-
-  it 'returns nil when a node does not exist' do
-    @subject.get_nodes(ids).must_equal [nil, nil]
-  end
-
-  it 'gets connections' do
-    nodes = @subject.add movies
-    expected = @subject.connect nodes
-
-    actual = @subject.get_connection nodes
-
-    actual.must_equal [expected]
-  end
-
-  it 'returns nil when a connection does not exist' do
-    nodes = @subject.add movies
-
-    @subject.get_connection(nodes).must_be_nil
+      @subject.find_connection(movies).must_equal({ movie_ids: ids, weight: 1 })
+    end
   end
 
   def create_graph nodes
@@ -110,7 +96,7 @@ describe Graph do
   end
 
   it 'finds neighboring movies' do
-    nodes = @subject.add [{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}]
+    nodes = @subject.create [{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}]
     create_graph nodes
 
     results = @subject.find_neighbors ids
@@ -121,7 +107,7 @@ describe Graph do
   end
 
   it 'only finds the neighbors' do
-    nodes = @subject.add [{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}]
+    nodes = @subject.create [{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}]
     create_graph nodes
 
     @subject.find_neighbors(ids).length.must_equal 3

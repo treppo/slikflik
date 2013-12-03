@@ -1,14 +1,14 @@
 module GraphDucktype
 
-  def get_nodes ids; end
+  def find_movies ids; end
 
-  def get_connection nodes; end
+  def find_connection movies; end
 
-  def connect nodes; end
+  def connect movies; end
 
-  def increase_weight relationship; end
+  def update_connection connection; end
 
-  def add movies; end
+  def create movies; end
 
   def find_neighbors movies; end
 end

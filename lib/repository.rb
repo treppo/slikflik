@@ -13,11 +13,18 @@ class Repository
 
   def create movies
     # TODO call properties instead of to_h
-    graph.add movies.map(&:to_h)
+    graph.create movies.map(&:to_h)
   end
 
-  def connect nodes
-    graph.increase_weight connection nodes
+  def connect movies
+    response = graph.find_connection movies.map(&:to_h)
+
+    if response.empty?
+      graph.connect movies.map(&:to_h)
+    else
+      response[:weight] += 1
+      graph.update_connection response
+    end
   end
 
   def find_neighbors movies
@@ -29,17 +36,17 @@ class Repository
   attr_reader :graph
 
   def divide_found_and_missing
-    ->(response, (id, node)) do
-      node.nil? ? response[:missing] << id : response[:found] << node
+    ->(response, (id, properties)) do
+      if properties.empty?
+        response[:missing] << id
+      else
+        response[:found] << Movie.new(properties)
+      end
       response
     end
   end
 
   def get_nodes ids
-    graph.get_nodes ids
-  end
-
-  def connection nodes
-    @_connection ||= graph.get_connection(nodes) || graph.connect(nodes)
+    graph.find_movies ids
   end
 end

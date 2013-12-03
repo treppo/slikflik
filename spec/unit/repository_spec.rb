@@ -10,11 +10,14 @@ describe Repository do
   include RepositoryInterfaceTest
 
   let(:ids) { [1, 2] }
-
+  let(:movie_properties) { [{ id: 1, title: 'title1' }, { id: 2, title: 'title2'}] }
   let(:movies) { [
     Movie.new(id: 1, title: 'title1'),
     Movie.new(id: 2, title: 'title2')
   ] }
+
+  let(:connection) {{ movie_ids: ids, weight: 1 }}
+  let(:no_connection) { {} }
 
   before do
     @graph = Quacky.mock :graph, GraphDucktype
@@ -23,60 +26,61 @@ describe Repository do
 
   it { assert_quacks_like @subject, NeighborsFinding }
 
-  it 'creates movie nodes in the database and returns them' do
-    expected = ['node1', 'node2']
-    @graph.stub :add, expected
+  it 'creates movies in the database and returns them' do
+    @graph.stub :create, movies
 
-    @subject.create(movies).must_equal expected
+    @subject.create(movies).must_equal movies
   end
 
   context 'when searching for a movie' do
     it 'returns the ids of the missing movies' do
-      @graph.stub :get_nodes, [nil, nil]
+      @graph.stub :find_movies, [{}, {}]
       @subject.find(ids).must_equal({
         found: [],
         missing: ids
       })
     end
 
-    it 'returns the found nodes' do
-      expected = ['node1', 'node2']
-      @graph.stub :get_nodes, expected
+    it 'returns the found movies' do
+      @graph.stub :find_movies, movie_properties
 
       @subject.find(ids).must_equal({
-        found: expected,
+        found: movies,
         missing: []
       })
     end
   end
 
-  context 'there is no prior connection between two nodes' do
-    it 'connects the nodes' do
-      nodes = ['node1', 'node2']
+  context 'there is no prior connection between two movies' do
+    before do
+      @graph = Minitest::Mock.new
+      @subject = Repository.new graph: @graph
+    end
 
-      @graph.expect :connect, 'connection', [nodes]
+    it 'connects the movies' do
+      @graph.expect :find_connection, no_connection, [movie_properties]
+      @graph.expect :connect, connection, [movie_properties]
 
-      @subject.connect nodes
+      @subject.connect movies
+
+      @graph.verify
     end
   end
 
   context 'there is a connection already' do
-    it 'gets the connection' do
-      nodes = ['node1', 'node2']
-
-      @graph.expect :get_connection, 'connection', [nodes]
-
-      @subject.connect nodes
+    before do
+      @graph = Minitest::Mock.new
+      @subject = Repository.new graph: @graph
     end
-  end
 
-  it 'increases the connections weight' do
-    nodes = ['node1', 'node2']
-    @graph.stub :connect, 'connection', [nodes]
+    it 'increases the connections weight' do
+      @graph.expect :find_connection, connection, [movie_properties]
+      @graph.expect :update_connection, nil, [{movie_ids: ids, weight: 2}]
 
-    @graph.expect :increase_weight, nil, ['connection']
+      @subject.connect movies
 
-    @subject.connect nodes
+      @graph.verify
+    end
   end
 
   it 'finds neighboring movies and returns them' do
