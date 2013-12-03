@@ -84,8 +84,9 @@ describe Repository do
   end
 
   it 'finds neighboring movies and returns them' do
-    neighbors = ['neighbor1', 'neighbor2']
-    @graph.stub :find_neighbors, neighbors, [ids]
+    neighbors_properties = [{ id: 0, title: 'title0' }, { id: 3, title: 'title3' }]
+    neighbors = neighbors_properties.map { |prop| Movie.new prop }
+    @graph.stub :find_neighbors, neighbors_properties, [ids]
 
     @subject.find_neighbors(movies).must_equal neighbors
   end

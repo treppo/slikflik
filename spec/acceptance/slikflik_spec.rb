@@ -17,6 +17,6 @@ describe 'Slik Flik' do
     # no result yet
 
     @app.submit_movies [335, 391]
-    @app.shows_result? 938, 'For a Few Dollars More'
+    @app.shows_result? 'For a Few Dollars More'
   end
 end

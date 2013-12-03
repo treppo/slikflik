@@ -26,8 +26,7 @@ class ApplicationRunner
     end
   end
 
-  def shows_result? id, title
-    page.must_have_content id.to_s
+  def shows_result? title
     page.must_have_content title.to_s
   end
 end

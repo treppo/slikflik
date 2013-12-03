@@ -28,7 +28,7 @@ class Repository
   end
 
   def find_neighbors movies
-    graph.find_neighbors movies.map(&:id)
+    graph.find_neighbors(movies.map(&:id)).map { |properties| Movie.new properties}
   end
 
   private
