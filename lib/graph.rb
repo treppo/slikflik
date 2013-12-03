@@ -18,13 +18,13 @@ class Graph
 
     return {} if empty_response? response
 
-    properties = symbolize_keys unpack_properties response
+    properties = symbolize_keys unpack_connection_properties response
     properties.merge movie_ids: ids
   end
 
   def connect movies
     ids = movies.map { |movie| movie.fetch :id }
-    properties = symbolize_keys unpack_properties database.execute_query "
+    properties = symbolize_keys unpack_connection_properties database.execute_query "
       START a=node:movies(id = '#{ids[0]}'),
             b=node:movies(id = '#{ids[1]}')
       CREATE a-[r:CONNECTION { weight: 1 }]-b
@@ -44,17 +44,26 @@ class Graph
     movies.map(&create_unique_node).map(&get_node_properties)
   end
 
-  def find_neighbors ids
-    ids.flat_map do |id|
-      unpack_response database.execute_query("
-        START movie=node:movies(id = '#{id}')
-        MATCH (movie)--(neighbor)
-        RETURN neighbor.id
-      ")
-    end.flatten.uniq - ids
+  def find_neighbors movie_ids
+    results = movie_ids.flat_map(&get_neighbors).uniq
+    remove_reference_movies results, movie_ids
   end
 
   private
+
+  def remove_reference_movies results, movie_ids
+    results.reject { |movie| movie_ids.include? movie[:id] }
+  end
+
+  def get_neighbors
+    ->(id) do
+      database.execute_query("
+        START movie=node:movies(id = '#{id}')
+        MATCH (movie)--(neighbor)
+        RETURN neighbor
+      ").fetch('data').flatten.map { |h| symbolize_keys h.fetch 'data' }
+    end
+  end
 
   def find_movie
     ->(id) do
@@ -93,8 +102,13 @@ class Graph
     Hash[hsh.map{|(k,v)| [k.to_sym,v]}]
   end
 
-  def unpack_properties obj
+  def unpack_connection_properties obj
     unpack_response(obj).flatten.first.fetch('data')
+  end
+
+  def unpack_movie_properties obj
+    puts unpack_response(obj)
+    unpack_response(obj).map { |resp| resp.fetch 'data' }
   end
 
   def unpack_response obj

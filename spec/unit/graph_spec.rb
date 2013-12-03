@@ -11,6 +11,14 @@ describe Graph do
     { id: 2, title: 'title2' }
   ] }
 
+  let(:more_movies) { [
+    { id: 0, title: 'title0' },
+    { id: 1, title: 'title1' },
+    { id: 2, title: 'title2' },
+    { id: 3, title: 'title3' },
+    { id: 4, title: 'title4' },
+  ] }
+
   def database
     @_database ||= TestDatabaseConnection.new
   end
@@ -35,7 +43,7 @@ describe Graph do
       properties.must_equal movies
     end
 
-    it 'creates unique nodes' do
+    it 'creates unique movies' do
       @subject.create movies
       @subject.create movies
 
@@ -87,29 +95,26 @@ describe Graph do
     end
   end
 
-  def create_graph nodes
-    @subject.connect [nodes[0], nodes[1]]
-    @subject.connect [nodes[1], nodes[2]]
-    @subject.connect [nodes[2], nodes[3]]
-    @subject.connect [nodes[2], nodes[4]]
-    @subject.connect [nodes[2], nodes[0]]
-  end
+  describe 'finding neighbors' do
+    before do
+      @subject.create more_movies
+      @subject.connect [more_movies[0], more_movies[1]]
+      @subject.connect [more_movies[1], more_movies[2]]
+      @subject.connect [more_movies[2], more_movies[3]]
+      @subject.connect [more_movies[2], more_movies[4]]
+      @subject.connect [more_movies[2], more_movies[0]]
+    end
 
-  it 'finds neighboring movies' do
-    nodes = @subject.create [{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}]
-    create_graph nodes
+    it 'returns neighboring movies' do
+      results = @subject.find_neighbors ids
 
-    results = @subject.find_neighbors ids
+      results.must_include more_movies[0]
+      results.must_include more_movies[3]
+      results.must_include more_movies[4]
+    end
 
-    results.must_include 0
-    results.must_include 3
-    results.must_include 4
-  end
-
-  it 'only finds the neighbors' do
-    nodes = @subject.create [{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}]
-    create_graph nodes
-
-    @subject.find_neighbors(ids).length.must_equal 3
+    it 'only returns the neighbors' do
+      @subject.find_neighbors(ids).length.must_equal 3
+    end
   end
 end
