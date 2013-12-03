@@ -450,4 +450,61 @@ http_interactions:
         cmFnZSI6Ni45LCJ2b3RlX2NvdW50IjoxMzZ9
     http_version: 
   recorded_at: Thu, 28 Nov 2013 23:14:51 GMT
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/movie/429?api_key=12345
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.8
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - public, max-age=86402
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Tue, 03 Dec 2013 21:35:21 GMT
+      etag:
+      - '"ba6ee743288a8b63a43b0a17aa5a2e63"'
+      server:
+      - nginx
+      status:
+      - 200 OK
+      vary:
+      - Accept-Encoding
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '5080'
+      x-memc-expires:
+      - '81322'
+      x-memc-key:
+      - d7327d91ecf7e8af2d7c1f3da75810ee
+      content-length:
+      - '894'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"adult":false,"backdrop_path":"/xGC2fY5KFmtuXnsuQwYQKFOLZFy.jpg","belongs_to_collection":{"id":48317,"name":"The
+        Man With No Name Collection","poster_path":"/lzUZptOL6iQqulMvhB2jfT5GepD.jpg","backdrop_path":"/a4Lqp3QdEWF6zh740VpBg6yvTZA.jpg"},"budget":1200000,"genres":[{"id":37,"name":"Western"}],"homepage":"http://www.mgm.com/view/Movie/766/The-Good,-the-Bad-and-the-Ugly/","id":429,"imdb_id":"tt0060196","original_title":"Il
+        buono, il brutto, il cattivo","overview":"While the Civil War rages between
+        the Union and the Confederacy, three men -- a quiet loner, a ruthless hit
+        man and a Mexican bandit -- comb the American Southwest in search of a strongbox
+        containing $200,000 in stolen gold.","popularity":4.41071458978032,"poster_path":"/wfPHdfofBD5PN96dV96a51B3Ja2.jpg","production_companies":[{"name":"Constantin
+        Film","id":47},{"name":"United Artists","id":60},{"name":"20th Century Fox
+        Home Entertainment","id":3635},{"name":"Constantin Film Produktion","id":5755},{"name":"Produzioni
+        Europee Associati (PEA)","id":7508}],"production_countries":[{"iso_3166_1":"IT","name":"Italy"},{"iso_3166_1":"ES","name":"Spain"},{"iso_3166_1":"DE","name":"Germany"}],"release_date":"1966-12-23","revenue":6000000,"runtime":161,"spoken_languages":[{"iso_639_1":"it","name":"Italiano"},{"iso_639_1":"en","name":"English"}],"status":"Released","tagline":"For
+        three men the Civil War wasn''t hell. It was practice.","title":"The Good,
+        the Bad and the Ugly","vote_average":7.4,"vote_count":712}'
+    http_version: 
+  recorded_at: Tue, 03 Dec 2013 21:35:21 GMT
 recorded_with: VCR 2.8.0
