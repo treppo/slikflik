@@ -2,11 +2,12 @@ require 'spec_helper'
 require 'title_search'
 require 'suggestion'
 require 'ducktypes/title_searching'
+require 'builders/movie_builder'
 
 describe TitleSearch do
 
   let(:title) { 'title' }
-  let(:suggestion_list) { [Suggestion.new, Suggestion.new] }
+  let(:suggestion_list) { MovieBuilder.new(ids: [1, 2], class: Suggestion).movies }
 
   before do
     @encyclopedia = Quacky.mock :encyclopedia, TitleSearching

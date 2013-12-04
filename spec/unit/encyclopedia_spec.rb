@@ -9,12 +9,10 @@ describe Encyclopedia do
 
   let(:ids) { [938, 335] }
   let(:id) { [938] }
-  let(:whitelist) { [:id, :title] }
-  let(:filtered_property) { :original_title }
   let(:title) { 'once upon a time in the west' }
 
   before do
-    @subject = Encyclopedia.new property_whitelist: whitelist
+    @subject = Encyclopedia.new
   end
 
   it 'behaves like a title searcher' do
@@ -27,16 +25,6 @@ describe Encyclopedia do
 
       entries[0].title.must_equal 'For a Few Dollars More'
       entries[1].title.must_equal 'Once Upon a Time in the West'
-    end
-  end
-
-  it 'filters movie properties according to the whitelist' do
-    VCR.use_cassette 'tmdb_lookup' do
-      entries = @subject.entries(id)
-
-      entries[0].must_respond_to :title
-      entries[0].must_respond_to :id
-      entries[0].wont_respond_to filtered_property
     end
   end
 

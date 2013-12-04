@@ -5,15 +5,9 @@ require 'movie'
 
 class Encyclopedia
 
-  DEFAULT_WHITELIST = [:title, :id]
-
-  def initialize args = {}
-    @whitelist = args.fetch :property_whitelist, DEFAULT_WHITELIST
-  end
-
   def entries ids
     ids.map do |id|
-      Movie.new filtered_properties parse movie_retrieval_request id
+      Movie.new parse movie_retrieval_request id
     end
   end
 
@@ -26,16 +20,6 @@ class Encyclopedia
   private
 
   attr_reader :whitelist
-
-  def filtered_properties props
-    props.reject(&filter)
-  end
-
-  def filter
-    ->(key, value) do
-      ! whitelist.include? key
-    end
-  end
 
   def parse response
     MultiJson.load response, symbolize_keys: true

@@ -1,4 +1,4 @@
-require 'ostruct'
+require 'movie'
 
-class Suggestion < OpenStruct
+class Suggestion < Movie
 end

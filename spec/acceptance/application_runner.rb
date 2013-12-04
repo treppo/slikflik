@@ -26,8 +26,9 @@ class ApplicationRunner
     end
   end
 
-  def shows_result? title
+  def shows_result? title, year
     page.must_have_content title
+    page.must_have_content year
   end
 
   def submit_title title
@@ -38,8 +39,9 @@ class ApplicationRunner
     end
   end
 
-  def shows_suggestion? id, title
+  def shows_suggestion? id, title, year
     page.must_have_content id
     page.must_have_content title
+    page.must_have_content year
   end
 end

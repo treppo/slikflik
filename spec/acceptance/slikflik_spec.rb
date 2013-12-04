@@ -17,13 +17,13 @@ describe 'Slik Flik' do
     @app.submit_movies [391, 429]
 
     @app.submit_movies [335, 391]
-    @app.shows_result? 'For a Few Dollars More'
-    @app.shows_result? 'The Good, the Bad and the Ugly'
+    @app.shows_result? 'For a Few Dollars More', 1965
+    @app.shows_result? 'The Good, the Bad and the Ugly', 1966
   end
 
   it 'shows title suggestions' do
     @app.submit_title 'oldboy'
-    @app.shows_suggestion? 87516, 'Oldboy'
-    @app.shows_suggestion? 670, 'Oldboy'
+    @app.shows_suggestion? 87516, 'Oldboy', 2013
+    @app.shows_suggestion? 670, 'Oldboy', 2003
   end
 end

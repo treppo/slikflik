@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'repository'
 require 'interfaces/repository'
-require 'movie'
+require 'builders/movie_builder'
 require 'ducktypes/graph'
 require 'ducktypes/neighbors_finding'
 
@@ -10,11 +10,11 @@ describe Repository do
   include RepositoryInterfaceTest
 
   let(:ids) { [1, 2] }
-  let(:movie_properties) { [{ id: 1, title: 'title1' }, { id: 2, title: 'title2'}] }
-  let(:movies) { [
-    Movie.new(id: 1, title: 'title1'),
-    Movie.new(id: 2, title: 'title2')
-  ] }
+  let(:movie_properties) { MovieBuilder.new(ids: ids).properties }
+  let(:movies) { MovieBuilder.new(ids: ids).movies }
+
+  let(:neighbors_properties) { MovieBuilder.new(ids: [0, 3]).properties }
+  let(:neighbors) { MovieBuilder.new(ids: [0, 3]).movies }
 
   let(:connection) {{ movie_ids: ids, weight: 1 }}
   let(:no_connection) { {} }
@@ -84,8 +84,6 @@ describe Repository do
   end
 
   it 'finds neighboring movies and returns them' do
-    neighbors_properties = [{ id: 0, title: 'title0' }, { id: 3, title: 'title3' }]
-    neighbors = neighbors_properties.map { |prop| Movie.new prop }
     @graph.stub :find_neighbors, neighbors_properties, [ids]
 
     @subject.find_neighbors(movies).must_equal neighbors
