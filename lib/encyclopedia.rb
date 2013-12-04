@@ -1,6 +1,6 @@
 require 'faraday'
 require 'multi_json'
-
+require 'suggestion'
 require 'movie'
 
 class Encyclopedia
@@ -13,7 +13,13 @@ class Encyclopedia
 
   def entries ids
     ids.map do |id|
-      Movie.new filtered_properties id
+      Movie.new filtered_properties parse movie_retrieval_request id
+    end
+  end
+
+  def search_title title
+    parse(title_search_request title).fetch(:results).map do |result|
+      Suggestion.new result
     end
   end
 
@@ -21,8 +27,8 @@ class Encyclopedia
 
   attr_reader :whitelist
 
-  def filtered_properties id
-    properties(id).reject(&filter)
+  def filtered_properties props
+    props.reject(&filter)
   end
 
   def filter
@@ -31,15 +37,19 @@ class Encyclopedia
     end
   end
 
-  def properties id
-    MultiJson.load request(id), symbolize_keys: true
+  def parse response
+    MultiJson.load response, symbolize_keys: true
   end
 
-  def request id
-    connection.get("#{id}", api_key: ENV['TMDB_API_KEY']).body
+  def movie_retrieval_request id
+    connection.get("movie/#{id}", api_key: ENV['TMDB_API_KEY']).body
+  end
+
+  def title_search_request title
+    connection.get("search/movie?query=#{title}", api_key: ENV['TMDB_API_KEY']).body
   end
 
   def connection
-    @_connection ||= Faraday.new url: "https://api.themoviedb.org/3/movie/"
+    @_connection ||= Faraday.new url: "https://api.themoviedb.org/3/"
   end
 end

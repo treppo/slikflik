@@ -5,6 +5,7 @@ require 'slim'
 
 require 'movies'
 require 'ideas'
+require 'title_search'
 
 class SlikFlik < Sinatra::Base
   get '/' do
@@ -18,6 +19,10 @@ class SlikFlik < Sinatra::Base
 
   get '/ideas' do
     slim :index, locals: { ideas: Ideas.new(ids: submitted_movies).find }
+  end
+
+  post '/suggestions' do
+    slim :suggestions, locals: { suggestions: TitleSearch.new(title: params[:title]).suggestions }
   end
 
   private

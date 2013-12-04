@@ -1,0 +1,119 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/search/movie?query=once+upon+a+time+in+the+west&api_key=12345
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.8
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - public, max-age=3600
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Wed, 04 Dec 2013 10:48:57 GMT
+      etag:
+      - '"99ce2f6ed00bb7dc9b8cb19fe6aaaff6"'
+      server:
+      - nginx
+      status:
+      - 200 OK
+      vary:
+      - Accept-Encoding
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '1651'
+      x-memc-expires:
+      - '1949'
+      x-memc-key:
+      - 9a79a5a51467f237149c592d3f1dd4a2
+      content-length:
+      - '698'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"page":1,"results":[{"adult":false,"backdrop_path":"/lagdbLlNPVVbFczUgRnGjdeKeQC.jpg","id":335,"original_title":"C''era
+        una volta il West","release_date":"1968-12-21","poster_path":"/l0CONnvPF183oja3fri6KGJOYAo.jpg","popularity":3.95938919918798,"title":"Once
+        Upon a Time in the West","vote_average":7.5,"vote_count":279},{"adult":false,"backdrop_path":null,"id":176514,"original_title":"Cinderella:
+        Once Upon A Time... In The West","release_date":"2013-03-12","poster_path":"/6ilBR6p5QogfvMtyljDG5veQLgf.jpg","popularity":0.00115027608282485,"title":"Cinderella:
+        Once Upon A Time... In The West","vote_average":3.5,"vote_count":1},{"adult":false,"backdrop_path":null,"id":122555,"original_title":"Film
+        for Invisible Ink, case no. 323: ONCE UPON A TIME IN THE WEST","release_date":"2010-07-23","poster_path":null,"popularity":0.23,"title":"Film
+        for Invisible Ink, case no. 323: ONCE UPON A TIME IN THE WEST","vote_average":0.0,"vote_count":0},{"adult":false,"backdrop_path":null,"id":153364,"original_title":"C''era
+        una volta questo pazzo pazzo west","release_date":"1973-10-17","poster_path":"/oApkNIlBAA65aQsQM2b1uMOA946.jpg","popularity":0.23,"title":"Once
+        Upon a Time in the Wild, Wild West","vote_average":0.0,"vote_count":0},{"adult":false,"backdrop_path":"/etj8NwceEKcFKnYxXI22f7OjkVo.jpg","id":146970,"original_title":"Lo
+        chiamavano Tresette... giocava sempre col morto","release_date":"1973-05-03","poster_path":"/oWEE61S06OxdzmjCjaio0Slr2wc.jpg","popularity":0.23,"title":"In
+        the West There Was a Man Named Invincible","vote_average":0.0,"vote_count":0}],"total_pages":1,"total_results":5}'
+    http_version: 
+  recorded_at: Wed, 04 Dec 2013 10:48:57 GMT
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/search/movie?query=oldboy&api_key=12345
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.8
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - public, max-age=3600
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Wed, 04 Dec 2013 12:08:27 GMT
+      etag:
+      - '"a5b8834a75ebdc112d94719a9a32dbce"'
+      server:
+      - nginx
+      status:
+      - 200 OK
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '3514'
+      x-memc-expires:
+      - '86'
+      x-memc-key:
+      - f2feb995b0e51f54164105964fc8b24b
+      content-length:
+      - '586'
+      connection:
+      - Close
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJwYWdlIjoxLCJyZXN1bHRzIjpbeyJhZHVsdCI6ZmFsc2UsImJhY2tkcm9w
+        X3BhdGgiOiIvZHdrRU9uS3ZKTEZneUtBaDI4dDd6WkFOMnhsLmpwZyIsImlk
+        Ijo4NzUxNiwib3JpZ2luYWxfdGl0bGUiOiJPbGRib3kiLCJyZWxlYXNlX2Rh
+        dGUiOiIyMDEzLTExLTI3IiwicG9zdGVyX3BhdGgiOiIvZThSYVpJZUZlSHBQ
+        b2xTcUtHc0ZWelpSaWFFLmpwZyIsInBvcHVsYXJpdHkiOjE1LjY0NjM0NDE5
+        OTkyNzMsInRpdGxlIjoiT2xkYm95Iiwidm90ZV9hdmVyYWdlIjo1LjYsInZv
+        dGVfY291bnQiOjd9LHsiYWR1bHQiOmZhbHNlLCJiYWNrZHJvcF9wYXRoIjoi
+        L2NuZTFBYU5vVlBIT0VVaXdjZFM3c1NvMXVKNS5qcGciLCJpZCI6NjcwLCJv
+        cmlnaW5hbF90aXRsZSI6IuyYrOuTnOuztOydtCIsInJlbGVhc2VfZGF0ZSI6
+        IjIwMDMtMTItMjEiLCJwb3N0ZXJfcGF0aCI6Ii9mY3Q3bjlWMTBFOHQ4YTd3
+        T1I5MENjdzBpNDguanBnIiwicG9wdWxhcml0eSI6NC4wOTAzMDE4OTY1NDYw
+        MywidGl0bGUiOiJPbGRib3kiLCJ2b3RlX2F2ZXJhZ2UiOjcuNSwidm90ZV9j
+        b3VudCI6MzE1fV0sInRvdGFsX3BhZ2VzIjoxLCJ0b3RhbF9yZXN1bHRzIjoy
+        fQ==
+    http_version: 
+  recorded_at: Wed, 04 Dec 2013 12:08:27 GMT
+recorded_with: VCR 2.8.0

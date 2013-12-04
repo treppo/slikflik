@@ -1,4 +1,5 @@
 ENV['RACK_ENV'] = 'test'
+ENV['TMDB_API_KEY'] ||= '12345'
 
 if ENV['CI']
   require 'simplecov'
