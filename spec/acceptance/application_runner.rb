@@ -18,30 +18,31 @@ class ApplicationRunner
   end
 
   def submit_movies movies
-    VCR.use_cassette 'tmdb_lookup' do
-      visit '/'
-      fill_in 'First Movie', with: movies[0]
-      fill_in 'Second Movie', with: movies[1]
-      click_on 'Find'
+    VCR.use_cassette :tmdb_configuration_lookup do
+      VCR.use_cassette :tmdb_lookup do
+        visit '/'
+        fill_in 'First Movie', with: movies[0]
+        fill_in 'Second Movie', with: movies[1]
+        click_on 'Find'
+      end
     end
   end
 
-  def shows_result? title, year
-    page.must_have_content title
-    page.must_have_content year
+  def shows_result? *properties
+    properties.each { |property| page.must_have_content property }
   end
 
   def submit_title title
-    VCR.use_cassette :tmdb_title_search do
-      visit '/'
-      fill_in 'First title', with: title
-      click_on 'Search'
+    VCR.use_cassette :tmdb_configuration_lookup do
+      VCR.use_cassette :tmdb_title_search do
+        visit '/'
+        fill_in 'First title', with: title
+        click_on 'Search'
+      end
     end
   end
 
-  def shows_suggestion? id, title, year
-    page.must_have_content id
-    page.must_have_content title
-    page.must_have_content year
+  def shows_suggestion? *properties
+    properties.each { |property| page.must_have_content property }
   end
 end

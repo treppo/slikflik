@@ -3,7 +3,12 @@ require 'movie'
 
 describe Movie do
 
-  let(:properties) {{ id: 1, title: 'title', release_date: '2012-01-31' }}
+  let(:properties) {{
+    id: 1,
+    title: 'title',
+    release_date: '2012-01-31',
+    poster_path: 'poster/path.jpg'
+  }}
 
   before do
     @subject = Movie.new properties

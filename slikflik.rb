@@ -8,6 +8,8 @@ require 'ideas'
 require 'title_search'
 
 class SlikFlik < Sinatra::Base
+  set :poster_url, Proc.new { Encyclopedia.new.poster_url }
+
   get '/' do
     slim :landing
   end
@@ -18,11 +20,17 @@ class SlikFlik < Sinatra::Base
   end
 
   get '/ideas' do
-    slim :index, locals: { ideas: Ideas.new(ids: submitted_movies).find }
+    slim :index, locals: {
+      ideas: Ideas.new(ids: submitted_movies).find,
+      poster_url: settings.poster_url
+    }
   end
 
   post '/suggestions' do
-    slim :suggestions, locals: { suggestions: TitleSearch.new(title: params[:title]).suggestions }
+    slim :suggestions, locals: {
+      suggestions: TitleSearch.new(title: params[:title]).suggestions,
+      poster_url: settings.poster_url
+    }
   end
 
   private

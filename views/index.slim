@@ -1,4 +1,7 @@
-- for idea in ideas do
-  .idea
-    .idea__title= idea.title
-    .idea__year= idea.year
+ul
+  - for idea in ideas do
+    li.idea
+      .idea_poster
+        img src=(poster_url.large + idea.poster_path)
+      .idea__title= idea.title
+      .idea__year= idea.year

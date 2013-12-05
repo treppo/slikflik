@@ -1,5 +1,8 @@
-- for suggestion in suggestions do
-  .suggestion
-    .suggestion__title= suggestion.title
-    .suggestion__id= suggestion.id
-    .suggestion__year= suggestion.year
+ul
+  - for suggestion in suggestions do
+    li.suggestion
+      .suggestion__poster
+        img src=(poster_url.small + suggestion.poster_path)
+      .suggestion__title= suggestion.title
+      .suggestion__id= suggestion.id
+      .suggestion__year= suggestion.year

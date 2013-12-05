@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/configuration?api_key=12345
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.8
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - public, max-age=36000
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Thu, 05 Dec 2013 13:11:50 GMT
+      etag:
+      - '"a1dda02b6f2e5ef6f6b1a534a181cf1d"'
+      server:
+      - nginx
+      status:
+      - 200 OK
+      content-length:
+      - '744'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"images":{"base_url":"http://d3gtl9l2a4fn1j.cloudfront.net/t/p/","secure_base_url":"https://d3gtl9l2a4fn1j.cloudfront.net/t/p/","poster_sizes":["w92","w154","w185","w342","w500","original"],"backdrop_sizes":["w300","w780","w1280","original"],"profile_sizes":["w45","w185","h632","original"],"logo_sizes":["w45","w92","w154","w185","w300","w500","original"]},"change_keys":["adult","also_known_as","alternative_titles","biography","birthday","budget","cast","character_names","crew","deathday","general","genres","homepage","images","imdb_id","name","original_title","overview","plot_keywords","production_companies","production_countries","releases","revenue","runtime","spoken_languages","status","tagline","title","trailers","translations"]}'
+    http_version: 
+  recorded_at: Thu, 05 Dec 2013 13:11:50 GMT
+recorded_with: VCR 2.8.0

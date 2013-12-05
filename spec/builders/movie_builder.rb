@@ -11,6 +11,13 @@ class MovieBuilder
   end
 
   def properties
-    @ids.map { |id| { id: id, title: "title#{id}", release_date: "200#{id}-1-1" }}
+    @ids.map do |id|
+      {
+        id: id,
+        title: "title#{id}",
+        release_date: "200#{id}-1-1",
+        poster_path: "poster#{id}.jpg"
+      }
+    end
   end
 end
