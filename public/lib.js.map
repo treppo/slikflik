@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "lib.js",
+  "sourceRoot": "../assets/js/lib/",
+  "sources": [
+    "autocomplete.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;CAAA;CAAA"
+}

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'sinatra'
+gem 'sinatra', '~> 1.4.4'
 gem 'neography'
 gem 'slim'
 gem 'oj', platforms: :ruby
@@ -18,6 +18,7 @@ group :development do
   gem 'guard'
   gem 'guard-minitest'
   gem 'guard-bundler'
+  gem 'sass'
 end
 
 group :development, :test do

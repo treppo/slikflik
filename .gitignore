@@ -1,3 +1,4 @@
 .env
 db/dev/*
 db/test/*
+node_modules

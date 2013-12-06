@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra/base'
-require 'neography'
 require 'slim'
 
 require 'movies'

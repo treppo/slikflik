@@ -1,0 +1,10 @@
+{
+  "name": "slikflik",
+  "dependencies": {
+    "jquery": "~2.0",
+    "typeahead.js": "~0.9"
+  },
+  "resolutions": {
+    "jquery": "~2.0"
+  }
+}
