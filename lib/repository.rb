@@ -13,7 +13,7 @@ class Repository
 
   def create movies
     # TODO call properties instead of to_h
-    graph.create movies.map(&:to_h)
+    properties_to_movies graph.create movies.map(&:to_h)
   end
 
   def connect movies
@@ -28,12 +28,16 @@ class Repository
   end
 
   def find_neighbors movies
-    graph.find_neighbors(movies.map(&:id)).map { |properties| Movie.new properties}
+    properties_to_movies graph.find_neighbors(movies.map(&:id))
   end
 
   private
 
   attr_reader :graph
+
+  def properties_to_movies props
+    props.map { |properties| Movie.new properties}
+  end
 
   def divide_found_and_missing
     ->(response, (id, properties)) do

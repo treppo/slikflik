@@ -27,7 +27,7 @@ describe Repository do
   it { assert_quacks_like @subject, NeighborsFinding }
 
   it 'creates movies in the database and returns them' do
-    @graph.stub :create, movies
+    @graph.stub :create, movie_properties
 
     @subject.create(movies).must_equal movies
   end
