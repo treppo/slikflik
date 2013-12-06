@@ -26,4 +26,10 @@ describe 'Slik Flik' do
     @app.shows_suggestion? 87516, 'Oldboy', 2013
     @app.shows_suggestion? 670, 'Oldboy', 2003
   end
+
+  it 'returns title suggestions as json' do
+    @app.request_suggestions_as_json 'oldboy'
+    @app.shows_json_suggestion? id: 87516, title: 'Oldboy', year: 2013
+    @app.shows_json_suggestion? id: 670, title: 'Oldboy', year: 2003
+  end
 end

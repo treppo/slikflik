@@ -9,6 +9,7 @@ gem 'typhoeus', platforms: :ruby
 gem 'rubysl', platforms: :rbx
 gem 'racc', platforms: :rbx
 gem 'rubinius-coverage', platforms: :rbx
+gem 'tilt-jbuilder', require: 'tilt/jbuilder'
 
 group :production, :development do
   gem 'foreman'

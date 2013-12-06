@@ -1,20 +1,25 @@
 require_relative '../../slikflik'
 require 'minitest/assertions'
-
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara_minitest_spec'
+require 'rack/test'
+require 'multi_json'
 
 class ApplicationRunner
   include Minitest::Assertions
   include Capybara::DSL
-
-  Capybara.app = SlikFlik.new
+  include Rack::Test::Methods
 
   attr_accessor :assertions
 
   def initialize
     @assertions = 0
+    Capybara.app = app
+  end
+
+  def app
+    SlikFlik.new
   end
 
   def submit_movies movies
@@ -44,5 +49,31 @@ class ApplicationRunner
 
   def shows_suggestion? *properties
     properties.each { |property| page.must_have_content property }
+  end
+
+  def request_suggestions_as_json title
+    VCR.use_cassette :tmdb_configuration_lookup do
+      VCR.use_cassette :tmdb_title_search do
+        post_json '/suggestions.json', title: title
+      end
+    end
+  end
+
+  def shows_json_suggestion? properties
+    last_json_response.fetch(:suggestions).must_include properties
+  end
+
+  private
+
+  def last_json_response
+    MultiJson.load last_response.body, symbolize_keys: true
+  end
+
+  def post_json path, params
+    post path, to_json(params), "CONTENT_TYPE" => "application/json"
+  end
+
+  def to_json params
+    MultiJson.dump params
   end
 end

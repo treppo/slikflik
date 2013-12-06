@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'sinatra/base'
+require 'tilt/jbuilder'
+require 'sinatra/jbuilder'
 require 'slim'
 
 require 'movies'
@@ -29,6 +31,13 @@ class SlikFlik < Sinatra::Base
     slim :suggestions, locals: {
       suggestions: TitleSearch.new(title: params[:title]).suggestions,
       poster_url: settings.poster_url
+    }
+  end
+
+  post '/suggestions.json' do
+    title = MultiJson.load(request.body).fetch 'title'
+    jbuilder :suggestions, locals: {
+      suggestions: TitleSearch.new(title: title).suggestions
     }
   end
 
