@@ -34,10 +34,10 @@ class SlikFlik < Sinatra::Base
     }
   end
 
-  post '/suggestions.json' do
-    title = MultiJson.load(request.body).fetch 'title'
+  get '/suggestions.json' do
     jbuilder :suggestions, locals: {
-      suggestions: TitleSearch.new(title: title).suggestions
+      suggestions: TitleSearch.new(title: params[:title]).suggestions,
+      poster_url: settings.poster_url
     }
   end
 

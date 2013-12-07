@@ -29,7 +29,12 @@ describe 'Slik Flik' do
 
   it 'returns title suggestions as json' do
     @app.request_suggestions_as_json 'oldboy'
-    @app.shows_json_suggestion? id: 87516, title: 'Oldboy', year: 2013
-    @app.shows_json_suggestion? id: 670, title: 'Oldboy', year: 2003
+    @app.shows_json_suggestion? id: 87516,
+      title: 'Oldboy (2013)',
+      poster: 'http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92/e8RaZIeFeHpPolSqKGsFVzZRiaE.jpg'
+
+    @app.shows_json_suggestion? id: 670,
+      title: 'Oldboy (2003)',
+      poster: 'http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92/fct7n9V10E8t8a7wOR90Ccw0i48.jpg'
   end
 end
