@@ -333,7 +333,7 @@ GEM
       tilt
     timers (1.1.0)
     tins (0.13.1)
-    typhoeus (0.3.3)
+    typhoeus (0.6.6)
       mime-types
     vcr (2.8.0)
     xpath (2.0.0)
