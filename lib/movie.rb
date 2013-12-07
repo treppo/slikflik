@@ -6,7 +6,7 @@ class Movie
     @id = properties.fetch :id
     @title = properties.fetch :title
     @release_date = properties.fetch :release_date
-    @poster_path = properties.fetch :poster_path
+    @poster_path = properties.fetch :poster_path, ''
   end
 
   def to_h
@@ -19,6 +19,7 @@ class Movie
   end
 
   def year
+    return @release_date if @release_date.empty?
     Date.parse(@release_date).year
   end
 
