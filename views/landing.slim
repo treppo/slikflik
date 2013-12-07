@@ -1,19 +1,23 @@
-form action='/ideas' method='POST'
-  label
-    ' First Movie
-    input type='text' name='movies[]'
-
-  label
-    ' Second Movie
-    input type='text' name='movies[]'
-
-  button type='submit'
-    | Find
-
 form action='/suggestions' method='POST'
   label
     ' First title
-    input type='text' name='title'
+    input#reference1 type='text' name='title'
+
+  label
+    ' Second title
+    input#reference2 type='text' name='title2'
 
   button type='submit'
     | Search
+
+form action='/ideas' method='POST'
+  label
+    ' First Movie
+    input#movieId1 type='text' name='movies[]'
+
+  label
+    ' Second Movie
+    input#movieId2 type='text' name='movies[]'
+
+  button type='submit'
+    | Find
