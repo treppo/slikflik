@@ -21,6 +21,15 @@ describe 'Slik Flik' do
     @app.shows_result? 'The Good, the Bad and the Ugly', 1966
   end
 
+  it 'shows results without layout for ajax requests' do
+    @app.submit_movies [938, 335]
+    @app.submit_movies [391, 429]
+
+    @app.submit_movies_with_ajax [335, 391]
+    @app.shows_result_without_layout? 'For a Few Dollars More', 1965
+    @app.shows_result_without_layout? 'The Good, the Bad and the Ugly', 1966
+  end
+
   it 'shows title suggestions' do
     @app.submit_title 'oldboy'
     @app.shows_suggestion? 87516, 'Oldboy', 2013

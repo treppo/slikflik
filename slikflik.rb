@@ -17,14 +17,17 @@ class SlikFlik < Sinatra::Base
 
   post '/ideas' do
     Movies.new(ids: submitted_movies).connect
-    redirect to "/ideas?movies[]=#{params[:movies][0]}&movies[]=#{params[:movies][1]}"
+    path = "/ideas?movies[]=#{params[:movies][0]}&movies[]=#{params[:movies][1]}"
+    path += '&xhr=1' if request.xhr?
+
+    redirect to path
   end
 
   get '/ideas' do
     slim :index, locals: {
       ideas: Ideas.new(ids: submitted_movies).find,
       poster_url: settings.poster_url
-    }
+    }, layout: (params['xhr'] != '1')
   end
 
   post '/suggestions' do

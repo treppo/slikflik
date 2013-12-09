@@ -33,8 +33,24 @@ class ApplicationRunner
     end
   end
 
+  def submit_movies_with_ajax movies
+    VCR.use_cassette :tmdb_configuration_lookup do
+      VCR.use_cassette :tmdb_lookup do
+        post '/ideas', { movies: movies }, { xhr: true }
+
+        follow_redirect!
+      end
+    end
+  end
+
   def shows_result? *properties
     properties.each { |property| page.must_have_content property }
+  end
+
+  def shows_result_without_layout? *properties
+    properties.each { |property| last_response.body.must_include property.to_s }
+    last_response.body.wont_include '<html>'
+    last_response.body.wont_include '<body>'
   end
 
   def submit_title title
