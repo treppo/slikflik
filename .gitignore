@@ -2,3 +2,4 @@
 db/dev/*
 db/test/*
 node_modules
+assets/vendor

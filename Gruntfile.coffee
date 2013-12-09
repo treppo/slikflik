@@ -6,14 +6,19 @@ module.exports = (grunt) ->
         options:
           sourceMap: true
         files:
-          'public/lib.js': ['assets/js/lib/*.coffee']
+          'public/js/lib.js': ['assets/js/*.coffee']
 
     copy:
-      main:
-        files: [
-          { expand: true, flatten: true, src: 'assets/js/vendor/jquery/jquery.js', dest: 'public/' }
-          { expand: true, flatten: true, src: 'assets/js/vendor/typeahead.js/dist/typeahead.js', dest: 'public/' }
+      vendor:
+        expand: true
+        flatten: true
+        src: [
+          'assets/vendor/jquery/jquery.js'
+          'assets/vendor/typeahead.js/dist/typeahead.js'
+          'assets/vendor/foundation/js/foundation.js'
+          'assets/vendor/foundation/js/foundation/foundation.abide.js'
         ]
+        dest: 'public/js/'
 
     uglify:
       slikflik:
@@ -25,14 +30,16 @@ module.exports = (grunt) ->
 
         files:
           'public/slikflik.js': [
-            'public/jquery.js'
-            'public/typeahead.js'
-            'public/lib.js'
+            'public/js/jquery.js'
+            'public/js/typeahead.js'
+            'public/js/foundation.js'
+            'public/js/foundation.abide.js'
+            'public/js/lib.js'
           ]
 
     watch:
       src:
-        files: ['assets/js/lib/*.coffee']
+        files: ['assets/js/*.coffee', 'Gruntfile.coffee']
         tasks: ['build']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
