@@ -53,6 +53,10 @@ class ApplicationRunner
     last_response.body.wont_include '<body>'
   end
 
+  def shows_result_in_order? earlier_result, later_result
+    page.body.index(earlier_result).must_be :<, page.body.index(later_result)
+  end
+
   def submit_title title
     VCR.use_cassette :tmdb_configuration_lookup do
       VCR.use_cassette :tmdb_title_search do

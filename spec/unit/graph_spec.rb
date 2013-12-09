@@ -87,11 +87,11 @@ describe Graph do
 
     it 'increases the weight of the connection' do
       connection = @subject.connect movies
-      connection[:weight] = 1
+      connection[:weight] = 2
 
       @subject.update_connection connection
 
-      @subject.find_connection(movies).must_equal({ movie_ids: ids, weight: 1 })
+      @subject.find_connection(movies).must_equal({ movie_ids: ids, weight: 2 })
     end
   end
 
@@ -115,6 +115,32 @@ describe Graph do
 
     it 'only returns the neighbors' do
       @subject.find_neighbors(ids).length.must_equal 3
+    end
+  end
+
+  describe 'finding neighbors in order of connection weight' do
+    before do
+      @subject.create more_movies
+      @subject.connect [more_movies[1], more_movies[2]]
+
+      connection0 = @subject.connect [more_movies[0], more_movies[1]]
+      connection0[:weight] = 2
+      @subject.update_connection connection0
+
+      connection1 = @subject.connect [more_movies[2], more_movies[3]]
+      connection1[:weight] = 3
+      @subject.update_connection connection1
+
+      connection2 = @subject.connect [more_movies[2], more_movies[4]]
+      connection2[:weight] = 4
+      @subject.update_connection connection2
+    end
+
+    it 'returns the movies in descending order of their connection weight' do
+      results = @subject.find_neighbors ids
+
+      results.index(more_movies[0]).must_be :>, results.index(more_movies[3])
+      results.index(more_movies[3]).must_be :>, results.index(more_movies[4])
     end
   end
 end

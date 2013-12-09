@@ -21,6 +21,19 @@ describe 'Slik Flik' do
     @app.shows_result? 'The Good, the Bad and the Ugly', 1966
   end
 
+  it 'shows results ordered by connection weight' do
+    @app.submit_movies [938, 335]
+    @app.submit_movies [391, 429]
+    @app.submit_movies [391, 429]
+    @app.submit_movies [391, 33]
+    @app.submit_movies [391, 33]
+    @app.submit_movies [391, 33]
+
+    @app.submit_movies [335, 391]
+    @app.shows_result_in_order? 'Unforgiven', 'The Good, the Bad and the Ugly'
+    @app.shows_result_in_order? 'The Good, the Bad and the Ugly', 'For a Few Dollars More'
+  end
+
   it 'shows results without layout for ajax requests' do
     @app.submit_movies [938, 335]
     @app.submit_movies [391, 429]

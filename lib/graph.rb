@@ -46,7 +46,9 @@ class Graph
 
   def find_neighbors movie_ids
     results = movie_ids.flat_map(&get_neighbors).uniq
-    remove_reference_movies results, movie_ids
+    sorted_results = results.sort_by(&:last).reverse
+    sorted_properties = sorted_results.map { |res| symbolize_keys res.first }
+    remove_reference_movies sorted_properties, movie_ids
   end
 
   private
@@ -57,11 +59,13 @@ class Graph
 
   def get_neighbors
     ->(id) do
-      database.execute_query("
+      response = database.execute_query("
         START movie=node:movies(id = '#{id}')
-        MATCH (movie)--(neighbor)
-        RETURN neighbor
-      ").fetch('data').flatten.map { |h| symbolize_keys h.fetch 'data' }
+        MATCH (movie)-[r:CONNECTION]-(neighbor)
+        RETURN neighbor, r.weight
+      ")
+      connection = response.fetch('data')
+      connection.map { |neighbor| [neighbor.first.fetch('data'), neighbor.last] }
     end
   end
 

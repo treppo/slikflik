@@ -507,4 +507,56 @@ http_interactions:
         the Bad and the Ugly","vote_average":7.4,"vote_count":712}'
     http_version: 
   recorded_at: Tue, 03 Dec 2013 21:35:21 GMT
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/movie/33?api_key=12345
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.8
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - public, max-age=86402
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Mon, 09 Dec 2013 15:22:59 GMT
+      etag:
+      - '"54e8d7828403a151825f53cbb14e7d7b"'
+      server:
+      - nginx
+      status:
+      - 200 OK
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '58356'
+      x-memc-expires:
+      - '28046'
+      x-memc-key:
+      - 8dc3645ccfc3cffbad69145cee7c0a56
+      content-length:
+      - '1004'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"adult":false,"backdrop_path":"/A9YUJXy0wLwYMvnUmPnyPOriTHp.jpg","belongs_to_collection":null,"budget":0,"genres":[{"id":37,"name":"Western"}],"homepage":"","id":33,"imdb_id":"tt0105695","original_title":"Unforgiven","overview":"William
+        Munny is a retired, once-ruthless killer turned gentle widower and hog farmer.
+        To help support his two motherless children, he accepts one last bounty-hunter
+        mission to find the men who brutalized a prostitute. Joined by his former
+        partner and a cocky greenhorn, he takes on a corrupt sheriff.","popularity":3.8348254568431,"poster_path":"/9oPodyvCWyPMZJDjg29tBfFRwtG.jpg","production_companies":[{"name":"Warner
+        Bros. Pictures","id":174}],"production_countries":[{"iso_3166_1":"US","name":"United
+        States of America"}],"release_date":"1992-08-07","revenue":159157447,"runtime":131,"spoken_languages":[{"iso_639_1":"en","name":"English"}],"status":"Released","tagline":"It''s
+        a hell of a thing, killing a man.","title":"Unforgiven","vote_average":7.1,"vote_count":190}'
+    http_version: 
+  recorded_at: Mon, 09 Dec 2013 15:22:58 GMT
 recorded_with: VCR 2.8.0
