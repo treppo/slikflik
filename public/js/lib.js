@@ -1,5 +1,5 @@
 (function() {
-  var $header, $ideasForm, $main, $movieId1, $movieId2, $reference1, $reference2, $resultsContainer, $suggestionsForm, ajaxFormRequest, formHandler, ideasFormRequest, moveForm, onAjaxRequestDone, preventDefaultEvent, removeVerticalCentering, renderTemplate, requestMethod, resultsTemplate, setIdInputFor, setup, showResults, showResultsInContainer, suggestionsUrl, typeaheadConfig;
+  var $header, $ideasForm, $main, $movieId1, $movieId2, $reference1, $reference2, $resultsContainer, $suggestionsForm, ajaxFormRequest, concatUrl, formHandler, ideasFormRequest, invokeUpdate, leftApply, locationConcat, moveForm, nullApplyPushState, onAjaxRequestDone, preventDefaultEvent, pushStateFunc, removeVerticalCentering, renderTemplate, requestMethod, resultsTemplate, setIdInputFor, setup, showResults, showResultsInContainer, suggestionsUrl, typeaheadConfig;
 
   $reference1 = $('#reference1');
 
@@ -64,7 +64,7 @@
   };
 
   showResults = function($container) {
-    return function(suggestions) {
+    return function(suggestions, status, jqxhr) {
       return $container.html(suggestions);
     };
   };
@@ -91,6 +91,34 @@
   formHandler = preventDefaultEvent(onAjaxRequestDone(ideasFormRequest, showResultsInContainer));
 
   $ideasForm.on('submit', formHandler);
+
+  locationConcat = function(url, params) {
+    return url + '?' + params;
+  };
+
+  leftApply = function(func, param1) {
+    return function(param2) {
+      return func(param1, param2);
+    };
+  };
+
+  nullApplyPushState = function(pushState) {
+    return function(location) {
+      return pushState({}, null, location);
+    };
+  };
+
+  concatUrl = leftApply(locationConcat, suggestionsUrl);
+
+  pushStateFunc = nullApplyPushState(history.pushState.bind(history));
+
+  invokeUpdate = function(pushToState, applyUrl, getParams) {
+    return function(event) {
+      return pushToState(applyUrl(getParams()));
+    };
+  };
+
+  $ideasForm.on('submit', invokeUpdate(pushStateFunc, concatUrl, $ideasForm.serialize.bind($ideasForm)));
 
   removeVerticalCentering = function($el) {
     return function(event) {

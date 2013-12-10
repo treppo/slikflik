@@ -7,6 +7,7 @@ $header = $('#introduction')
 suggestionsUrl = $ideasForm.attr 'action'
 requestMethod = $ideasForm.attr 'method'
 
+# handle form submission and showing of results
 ajaxFormRequest = (ajax, $form, url, method) ->
   ->
     ajax
@@ -16,7 +17,7 @@ ajaxFormRequest = (ajax, $form, url, method) ->
       data: $form.serialize()
 
 showResults = ($container) ->
-  (suggestions) ->
+  (suggestions, status, jqxhr) ->
     $container.html suggestions
 
 onAjaxRequestDone = (asyncRequest, responseHandler) ->
@@ -37,6 +38,29 @@ formHandler = preventDefaultEvent onAjaxRequestDone ideasFormRequest, showResult
 $ideasForm.on 'submit', formHandler
 
 
+# update browser location when submitting the form
+locationConcat = (url, params) ->
+  url + '?' + params
+
+leftApply = (func, param1) ->
+  (param2) ->
+    func param1, param2
+
+nullApplyPushState = (pushState) ->
+  (location) ->
+    pushState {}, null, location
+
+concatUrl = leftApply locationConcat, suggestionsUrl
+pushStateFunc = nullApplyPushState history.pushState.bind history
+
+invokeUpdate = (pushToState, applyUrl, getParams) ->
+  (event) ->
+    pushToState applyUrl getParams()
+
+$ideasForm.on 'submit', invokeUpdate pushStateFunc, concatUrl, $ideasForm.serialize.bind $ideasForm
+
+
+# move form on submission
 removeVerticalCentering = ($el) ->
   (event) ->
     $el.removeClass 'introduction_vertical_center'
