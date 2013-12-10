@@ -15,8 +15,6 @@ module.exports = (grunt) ->
         src: [
           'assets/vendor/jquery/jquery.js'
           'assets/vendor/typeahead.js/dist/typeahead.js'
-          'assets/vendor/foundation/js/foundation.js'
-          'assets/vendor/foundation/js/foundation/foundation.abide.js'
         ]
         dest: 'public/js/'
 
@@ -32,8 +30,6 @@ module.exports = (grunt) ->
           'public/slikflik.js': [
             'public/js/jquery.js'
             'public/js/typeahead.js'
-            'public/js/foundation.js'
-            'public/js/foundation.abide.js'
             'public/js/lib.js'
           ]
 

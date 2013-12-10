@@ -1,5 +1,5 @@
 (function() {
-  var $ideasForm, $main, $movieId1, $movieId2, $reference1, $reference2, $resultsContainer, formHandler, renderTemplate, requestResults, resultsTemplate, setIdInputFor, setup, showResults, showResultsFromRequest, typeaheadConfig;
+  var $header, $ideasForm, $main, $movieId1, $movieId2, $reference1, $reference2, $resultsContainer, $suggestionsForm, ajaxFormRequest, formHandler, ideasFormRequest, moveForm, onAjaxRequestDone, preventDefaultEvent, removeVerticalCentering, renderTemplate, requestMethod, resultsTemplate, setIdInputFor, setup, showResults, showResultsInContainer, suggestionsUrl, typeaheadConfig;
 
   $reference1 = $('#reference1');
 
@@ -34,6 +34,8 @@
 
   setup($reference2, $movieId2);
 
+  $reference1.focus();
+
   resultsTemplate = '<div id="results"></div>';
 
   $resultsContainer = $(resultsTemplate);
@@ -42,12 +44,20 @@
 
   $ideasForm = $('#ideas-form');
 
-  requestResults = function(ajax, $form) {
+  $suggestionsForm = $('#suggestions-form');
+
+  $header = $('#introduction');
+
+  suggestionsUrl = $ideasForm.attr('action');
+
+  requestMethod = $ideasForm.attr('method');
+
+  ajaxFormRequest = function(ajax, $form, url, method) {
     return function() {
       return ajax({
-        url: $form.attr('action'),
+        url: url,
         dataType: 'html',
-        type: $form.attr('method'),
+        type: method,
         data: $form.serialize()
       });
     };
@@ -59,18 +69,38 @@
     };
   };
 
-  showResultsFromRequest = function(asyncRequest, responseHandler) {
-    return function(event) {
-      event.preventDefault();
+  onAjaxRequestDone = function(asyncRequest, responseHandler) {
+    return function() {
       return asyncRequest().done(responseHandler);
     };
   };
 
+  preventDefaultEvent = function(func) {
+    return function(event) {
+      event.preventDefault();
+      return func();
+    };
+  };
+
+  ideasFormRequest = ajaxFormRequest($.ajax, $ideasForm, suggestionsUrl, requestMethod);
+
+  showResultsInContainer = showResults($resultsContainer);
+
   $main.append($resultsContainer);
 
-  formHandler = showResultsFromRequest(requestResults($.ajax, $ideasForm), showResults($resultsContainer));
+  formHandler = preventDefaultEvent(onAjaxRequestDone(ideasFormRequest, showResultsInContainer));
 
   $ideasForm.on('submit', formHandler);
+
+  removeVerticalCentering = function($el) {
+    return function(event) {
+      return $el.removeClass('introduction_vertical_center');
+    };
+  };
+
+  moveForm = removeVerticalCentering($header);
+
+  $ideasForm.one('submit', moveForm);
 
 }).call(this);
 

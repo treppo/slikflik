@@ -24,3 +24,4 @@ setup = ($reference, $movieId) ->
 
 setup $reference1, $movieId1
 setup $reference2, $movieId2
+$reference1.focus()
