@@ -45,10 +45,11 @@ class Graph
   end
 
   def find_neighbors movie_ids
-    results = movie_ids.flat_map(&get_neighbors).uniq
+    results = movie_ids.flat_map(&get_neighbors)
     sorted_results = results.sort_by(&:last).reverse
     sorted_properties = sorted_results.map { |res| symbolize_keys res.first }
-    remove_reference_movies sorted_properties, movie_ids
+    neighbors = remove_reference_movies sorted_properties, movie_ids
+    neighbors.uniq
   end
 
   private

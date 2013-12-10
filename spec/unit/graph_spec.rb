@@ -98,29 +98,6 @@ describe Graph do
   describe 'finding neighbors' do
     before do
       @subject.create more_movies
-      @subject.connect [more_movies[0], more_movies[1]]
-      @subject.connect [more_movies[1], more_movies[2]]
-      @subject.connect [more_movies[2], more_movies[3]]
-      @subject.connect [more_movies[2], more_movies[4]]
-      @subject.connect [more_movies[2], more_movies[0]]
-    end
-
-    it 'returns neighboring movies' do
-      results = @subject.find_neighbors ids
-
-      results.must_include more_movies[0]
-      results.must_include more_movies[3]
-      results.must_include more_movies[4]
-    end
-
-    it 'only returns the neighbors' do
-      @subject.find_neighbors(ids).length.must_equal 3
-    end
-  end
-
-  describe 'finding neighbors in order of connection weight' do
-    before do
-      @subject.create more_movies
       @subject.connect [more_movies[1], more_movies[2]]
 
       connection0 = @subject.connect [more_movies[0], more_movies[1]]
@@ -134,6 +111,20 @@ describe Graph do
       connection2 = @subject.connect [more_movies[2], more_movies[4]]
       connection2[:weight] = 4
       @subject.update_connection connection2
+
+      @subject.connect [more_movies[2], more_movies[0]]
+    end
+
+    it 'returns neighboring movies' do
+      results = @subject.find_neighbors ids
+
+      results.must_include more_movies[0]
+      results.must_include more_movies[3]
+      results.must_include more_movies[4]
+    end
+
+    it 'only returns the neighbors' do
+      @subject.find_neighbors(ids).length.must_equal 3
     end
 
     it 'returns the movies in descending order of their connection weight' do
