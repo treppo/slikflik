@@ -28,7 +28,7 @@ class ApplicationRunner
         visit '/'
         fill_in 'First Movie', with: movies[0]
         fill_in 'Second Movie', with: movies[1]
-        click_on 'Find'
+        click_on 'Get recommendations'
       end
     end
   end
@@ -61,7 +61,7 @@ class ApplicationRunner
     VCR.use_cassette :tmdb_configuration_lookup do
       VCR.use_cassette :tmdb_title_search do
         visit '/'
-        fill_in 'First title', with: title
+        fill_in 'First movie title', with: title
         click_on 'Search'
       end
     end

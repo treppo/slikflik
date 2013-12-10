@@ -37,9 +37,18 @@ module.exports = (grunt) ->
             'public/js/lib.js'
           ]
 
+    sass:
+      slikflik:
+        files:
+          'public/slikflik.css': 'assets/css/slikflik.sass'
+
     watch:
       src:
-        files: ['assets/js/*.coffee', 'Gruntfile.coffee']
+        files: [
+          'assets/js/*.coffee'
+          'assets/css/slikflik.sass'
+          'Gruntfile.coffee'
+        ]
         tasks: ['build']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
@@ -48,4 +57,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-watch'
 
-  grunt.registerTask 'build', ['copy', 'coffee', 'uglify']
+  grunt.registerTask 'build', ['copy', 'coffee', 'uglify', 'sass']

@@ -1,24 +1,41 @@
+header#introduction.introduction.introduction_vertical_center
+  .row
+    .medium-6.columns.small-centered
+      h1 SlikFlik
+  .row
+    .medium-6.columns.small-centered
+      h2 Enter two similar movies and get recommendations based on them
+
 main
-  form action='/suggestions' method='POST'
-    label
-      ' First title
-      input#reference1 type='text' name='title'
+  form#suggestions-form action='/suggestions' method='POST'
+    .row
+      .medium-6.columns.small-centered
+        label for='reference1'
+          ' First movie title
+        input#reference1 type='text' name='title'
 
-    label
-      ' Second title
-      input#reference2 type='text' name='title2'
+    .row
+      .medium-6.columns.small-centered
+        label for='reference2'
+          ' Second movie title
+        input#reference2 type='text' name='title2'
 
-    button type='submit'
-      | Search
+    .row
+      .small-6.columns
+        button.hide type='submit'
+          | Search
 
   form#ideas-form action='/ideas' method='POST'
-    label
-      ' First Movie
-      input#movieId1 type='text' name='movies[]'
+    .hide
+      label
+        ' First Movie
+        input#movieId1 type='text' name='movies[]'
 
-    label
-      ' Second Movie
-      input#movieId2 type='text' name='movies[]'
+      label
+        ' Second Movie
+        input#movieId2 type='text' name='movies[]'
 
-    button type='submit'
-      | Find similar
+    .row
+      .small-6.columns.small-centered.text-center
+        button type='submit'
+          | Get recommendations
