@@ -44,6 +44,10 @@ class SlikFlik < Sinatra::Base
     }
   end
 
+  get '/thanks' do
+    slim :thanks
+  end
+
   private
 
   def submitted_movies
