@@ -12,12 +12,7 @@ namespace :db do
   task :prepare do
     require 'neography'
 
-    Neography.configure do |config|
-      database_config = YAML.load_file('config/database.yml')[ENV['RACK_ENV'] || 'development']
-      config.server = database_config['server']
-      config.port = database_config['port']
-    end
-
-    Neography::Rest.new.create_node_index 'movies'
+    url = ENV['NEO4J_URL'] || YAML.load_file('config/database.yml')[ENV['RACK_ENV']]['url']
+    Neography::Rest.new(url).create_node_index 'movies'
   end
 end

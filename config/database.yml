@@ -1,7 +1,5 @@
 test:
-  server: 'localhost'
-  port: '7474'
+  url: 'http://localhost:7474'
 
 development:
-  server: 'localhost'
-  port: '7475'
+  url: 'http://localhost:7475'

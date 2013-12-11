@@ -1,11 +1,5 @@
 require 'neography'
 
-Neography.configure do |config|
-  database_config = YAML.load_file('config/database.yml')[ENV['RACK_ENV']]
-  config.server = database_config['server']
-  config.port = database_config['port']
-end
-
 class Graph
 
   def find_movies ids
@@ -125,6 +119,6 @@ class Graph
   end
 
   def database
-    @_db ||= Neography::Rest.new
+    @_db ||= Neography::Rest.new(ENV['NEO4J_URL'] || YAML.load_file('config/database.yml')[ENV['RACK_ENV']]['url'])
   end
 end

@@ -1,1 +1,1 @@
-web: bundle exec unicorn
+web: bundle exec rackup config.ru -p $PORT

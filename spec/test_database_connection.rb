@@ -1,12 +1,5 @@
 require 'neography'
 
-database_config = YAML.load_file('config/database.yml')['test']
-
-Neography.configure do |config|
-  config.server = database_config['server']
-  config.port = database_config['port']
-end
-
 class TestDatabaseConnection
 
   extend Forwardable
@@ -16,7 +9,7 @@ class TestDatabaseConnection
   def_delegators :db, :create_nodes
 
   def initialize
-    @db = Neography::Rest.new
+    @db ||= Neography::Rest.new(ENV['NEO4J_URL'] || YAML.load_file('config/database.yml')[ENV['RACK_ENV']]['url'])
   end
 
   def reset
