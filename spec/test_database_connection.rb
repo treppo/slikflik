@@ -1,4 +1,4 @@
-require 'neography'
+require 'neography_connection'
 
 class TestDatabaseConnection
 
@@ -9,7 +9,7 @@ class TestDatabaseConnection
   def_delegators :db, :create_nodes
 
   def initialize
-    @db ||= Neography::Rest.new(ENV['NEO4J_URL'] || YAML.load_file('config/database.yml')[ENV['RACK_ENV']]['url'])
+    @db ||= NeographyConnection.db
   end
 
   def reset

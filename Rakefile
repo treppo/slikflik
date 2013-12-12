@@ -9,10 +9,13 @@ end
 task default: [:test]
 
 namespace :db do
-  task :prepare do
-    require 'neography'
+  task :prepare, :environment do |t, args|
+    desc 'Set up the database index'
 
-    url = ENV['NEO4J_URL'] || YAML.load_file('config/database.yml')[ENV['RACK_ENV']]['url']
-    Neography::Rest.new(url).create_node_index 'movies'
+    args.with_defaults environment: 'development'
+    ENV['RACK_ENV'] = args[:environment]
+
+    require_relative 'lib/neography_connection'
+    NeographyConnection.db.create_node_index 'movies'
   end
 end

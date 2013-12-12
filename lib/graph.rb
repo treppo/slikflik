@@ -1,4 +1,4 @@
-require 'neography'
+require 'neography_connection'
 
 class Graph
 
@@ -119,6 +119,6 @@ class Graph
   end
 
   def database
-    @_db ||= Neography::Rest.new(ENV['NEO4J_URL'] || YAML.load_file('config/database.yml')[ENV['RACK_ENV']]['url'])
+    @_db ||= NeographyConnection.db
   end
 end
