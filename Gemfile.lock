@@ -354,6 +354,7 @@ DEPENDENCIES
   guard-minitest
   minitest
   minitest-spec-context
+  multi_json
   neography
   oj
   quacky

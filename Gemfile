@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'sinatra', '~> 1.4.4'
 gem 'neography'
 gem 'slim'
+gem 'multi_json'
 gem 'oj', platforms: :ruby
 gem 'faraday'
 gem 'typhoeus', platforms: :ruby
