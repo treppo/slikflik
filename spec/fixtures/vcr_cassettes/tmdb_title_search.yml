@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.themoviedb.org/3/search/movie?query=once+upon+a+time+in+the+west&api_key=12345
+    uri: https://api.themoviedb.org/3/search/movie?api_key=12345&query=once+upon+a+time+in+the+west
     body:
       encoding: US-ASCII
       string: ''
@@ -59,7 +59,7 @@ http_interactions:
   recorded_at: Wed, 04 Dec 2013 10:48:57 GMT
 - request:
     method: get
-    uri: https://api.themoviedb.org/3/search/movie?query=oldboy&api_key=12345
+    uri: https://api.themoviedb.org/3/search/movie?api_key=12345&query=oldboy
     body:
       encoding: US-ASCII
       string: ''

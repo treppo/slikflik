@@ -36,7 +36,7 @@ class Encyclopedia
   end
 
   def title_search_request title
-    connection.get("search/movie?query=#{title}", api_key: ENV['TMDB_API_KEY']).body
+    connection.get("search/movie", query: title, api_key: ENV['TMDB_API_KEY']).body
   end
 
   def configuration_request
