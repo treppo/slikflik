@@ -30,7 +30,7 @@ end
 group :test do
   gem 'coveralls'
   gem 'simplecov'
-  gem 'minitest'
+  gem 'minitest', '5.2.1'
   gem 'minitest-spec-context'
   gem "rack-test", require: "rack/test"
   gem 'capybara'
