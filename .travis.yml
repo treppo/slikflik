@@ -1,19 +1,21 @@
-language: ruby
 rvm:
-  - 1.9.3
-  - 2.0.0
+  - 2.1.2
   - ruby-head
-  - jruby-19mode
-  - rbx-2.1.1
+  - jruby
+  - jruby-head
+  - rbx-2.2.9
 
 matrix:
+  include:
+    - rvm: jruby
+      env: JRUBY_OPTS='--2.0'
   allow_failures:
-    - rvm: jruby-19mode
-    - rvm: rbx-2.1.1
-
+    - rvm: jruby-head
+    - rvm: ruby-head
   fast_finish: true
 
 services:
   - neo4j
 
 bundler_args: --without production development
+
