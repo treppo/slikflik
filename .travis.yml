@@ -1,16 +1,9 @@
 rvm:
   - 2.1.2
   - ruby-head
-  - jruby
-  - jruby-head
-  - rbx-2.2.9
 
 matrix:
-  include:
-    - rvm: jruby
-      env: JRUBY_OPTS='--2.0'
   allow_failures:
-    - rvm: jruby-head
     - rvm: ruby-head
   fast_finish: true
 
