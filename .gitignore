@@ -1,5 +1,6 @@
 .env
-db/dev/*
-db/test/*
+db/*
 node_modules
 assets/vendor
+/neo4j*
+/.idea
