@@ -6,17 +6,13 @@ describe Encyclopedia do
 
   include EncyclopediaInterfaceTest
 
-  let(:ids) { [938, 335] }
-  let(:id) { [938] }
-  let(:title) { 'once upon a time in the west' }
-
   before do
     @subject = Encyclopedia.new
   end
 
   it 'looks up entries in the external movie database' do
     VCR.use_cassette :tmdb_lookup do
-      entries = @subject.entries(ids)
+      entries = @subject.entries([938, 335])
 
       entries[0].title.must_equal 'For a Few Dollars More'
       entries[1].title.must_equal 'Once Upon a Time in the West'
@@ -25,7 +21,7 @@ describe Encyclopedia do
 
   it 'searches for titles' do
     VCR.use_cassette :tmdb_title_search do
-      suggestions = @subject.search_title title
+      suggestions = @subject.search_title 'once upon a time in the west'
 
       suggestions[0].title.must_equal 'Once Upon a Time in the West'
       suggestions[0].id.must_equal 335

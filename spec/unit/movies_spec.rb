@@ -5,8 +5,6 @@ require 'interfaces/connectable'
 
 describe Movies do
 
-  include ConnectableInterfaceTest
-
   before do
     @fetcher = FetcherDouble.new
     @repository = Minitest::Mock.new

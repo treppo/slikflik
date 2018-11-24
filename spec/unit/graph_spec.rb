@@ -4,19 +4,18 @@ require 'test_database_connection'
 
 describe Graph do
 
-  let(:ids) { [1, 2] }
-  let(:movies) { [
+  ids = [1, 2]
+  movies = [
     { id: 1, title: 'title1' },
     { id: 2, title: 'title2' }
-  ] }
-
-  let(:more_movies) { [
+  ]
+  more_movies = [
     { id: 0, title: 'title0' },
     { id: 1, title: 'title1' },
     { id: 2, title: 'title2' },
     { id: 3, title: 'title3' },
     { id: 4, title: 'title4' },
-  ] }
+  ]
 
   def database
     @_database ||= TestDatabaseConnection.new

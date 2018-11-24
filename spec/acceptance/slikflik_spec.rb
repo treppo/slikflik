@@ -4,13 +4,13 @@ require 'test_database_connection'
 
 describe 'Slik Flik' do
 
-  let(:unforgiven) {{ id: 33, title: 'Unforgiven' }}
-  let(:good_bad_ugly) {{ id: 429, title: 'The Good, the Bad and the Ugly', year: 1966 }}
-  let(:for_a_few_dollars_more) {{ id: 938, title: 'For a Few Dollars More', year: 1965 }}
-  let(:once_upon_a_time_in_the_west) {{ id: 335, title: 'Once Upon a Time in the West', year: 1968 }}
-  let(:fistful_of_dollars) {{ id: 391, title: 'A Fistful of Dollars', year: 1964 }}
-  let(:oldboy13) {{ id: 87516, title: 'Oldboy', year: 2013 }}
-  let(:oldboy03) {{ id: 670, title: 'Oldboy', year: 2003 }}
+  unforgiven = { id: 33, title: 'Unforgiven' }
+  good_bad_ugly = { id: 429, title: 'The Good, the Bad and the Ugly', year: 1966 }
+  for_a_few_dollars_more = { id: 938, title: 'For a Few Dollars More', year: 1965 }
+  once_upon_a_time_in_the_west = { id: 335, title: 'Once Upon a Time in the West', year: 1968 }
+  fistful_of_dollars = { id: 391, title: 'A Fistful of Dollars', year: 1964 }
+  oldboy13 = { id: 87516, title: 'Oldboy', year: 2013 }
+  oldboy03 = { id: 670, title: 'Oldboy', year: 2003 }
 
   before do
     @app = ApplicationRunner.new
@@ -43,6 +43,7 @@ describe 'Slik Flik' do
 
   it 'shows title suggestions' do
     @app.submit_title 'oldboy'
+
     @app.shows_suggestion? oldboy13
     @app.shows_suggestion? oldboy03
   end

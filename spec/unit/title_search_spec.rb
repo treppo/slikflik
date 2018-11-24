@@ -5,8 +5,8 @@ require 'builders/movie_builder'
 
 describe TitleSearch do
 
-  let(:title) { 'title' }
-  let(:suggestion_list) { MovieBuilder.new(ids: [1, 2], class: Suggestion).movies }
+  title = 'title'
+  suggestion_list = MovieBuilder.new(ids: [1, 2], class: Suggestion).movies
 
   before do
     @encyclopedia = MiniTest::Mock.new
