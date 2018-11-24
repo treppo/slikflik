@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'repository'
 require 'interfaces/repository'
 require 'builders/movie_builder'
-require 'ducktypes/graph'
-require 'ducktypes/neighbors_finding'
 
 describe Repository do
 
@@ -20,34 +18,39 @@ describe Repository do
   let(:no_connection) { {} }
 
   before do
-    @graph = Quacky.mock :graph, GraphDucktype
+    @graph = Minitest::Mock.new
     @subject = Repository.new graph: @graph
   end
 
-  it { assert_quacks_like @subject, NeighborsFinding }
-
   it 'creates movies in the database and returns them' do
-    @graph.stub :create, movie_properties
+    @graph.expect :create, movie_properties, [movies.map(&:to_h)]
 
     @subject.create(movies).must_equal movies
+
+    @graph.verify
   end
 
   context 'when searching for a movie' do
     it 'returns the ids of the missing movies' do
-      @graph.stub :find_movies, [{}, {}]
+      @graph.expect :find_movies, [{}, {}], [ids]
+
       @subject.find(ids).must_equal({
         found: [],
         missing: ids
       })
+
+      @graph.verify
     end
 
     it 'returns the found movies' do
-      @graph.stub :find_movies, movie_properties
+      @graph.expect :find_movies, movie_properties, [ids]
 
       @subject.find(ids).must_equal({
         found: movies,
         missing: []
       })
+
+      @graph.verify
     end
   end
 
@@ -84,7 +87,7 @@ describe Repository do
   end
 
   it 'finds neighboring movies and returns them' do
-    @graph.stub :find_neighbors, neighbors_properties, [ids]
+    @graph.expect :find_neighbors, neighbors_properties, [ids]
 
     @subject.find_neighbors(movies).must_equal neighbors
   end

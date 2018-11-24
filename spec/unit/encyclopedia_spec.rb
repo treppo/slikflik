@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'encyclopedia'
 require 'interfaces/encyclopedia'
-require 'ducktypes/title_searching'
 
 describe Encyclopedia do
 
@@ -13,10 +12,6 @@ describe Encyclopedia do
 
   before do
     @subject = Encyclopedia.new
-  end
-
-  it 'behaves like a title searcher' do
-    assert_quacks_like @subject, TitleSearching
   end
 
   it 'looks up entries in the external movie database' do

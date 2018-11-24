@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'graph'
 require 'test_database_connection'
-require 'ducktypes/graph'
 
 describe Graph do
 
@@ -29,10 +28,6 @@ describe Graph do
 
   after do
     database.reset
-  end
-
-  it 'behaves like a graph type' do
-    assert_quacks_like @subject, GraphDucktype
   end
 
   describe 'creating and retrieving movies' do

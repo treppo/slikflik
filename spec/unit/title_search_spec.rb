@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'title_search'
 require 'suggestion'
-require 'ducktypes/title_searching'
 require 'builders/movie_builder'
 
 describe TitleSearch do
@@ -10,7 +9,7 @@ describe TitleSearch do
   let(:suggestion_list) { MovieBuilder.new(ids: [1, 2], class: Suggestion).movies }
 
   before do
-    @encyclopedia = Quacky.mock :encyclopedia, TitleSearching
+    @encyclopedia = MiniTest::Mock.new
     @subject = TitleSearch.new title: title, encyclopedia: @encyclopedia
   end
 
@@ -19,8 +18,10 @@ describe TitleSearch do
   end
 
   it 'returns suggestions from the encyclopedia' do
-    @encyclopedia.stub :search_title, suggestion_list, [title]
+    @encyclopedia.expect :search_title, suggestion_list, [title]
 
     @subject.suggestions.must_equal suggestion_list
+
+    @encyclopedia.verify
   end
 end
