@@ -1,16 +1,6 @@
 ENV['RACK_ENV'] = 'test'
 ENV['TMDB_API_KEY'] ||= '12345'
 
-if ENV['CI']
-  require 'simplecov'
-  SimpleCov.start do
-    add_filter "/spec/"
-  end
-
-  require 'coveralls'
-  Coveralls.wear!
-end
-
 require 'vcr_setup'
 
 require 'test_database_connection'

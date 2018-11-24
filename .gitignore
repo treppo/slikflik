@@ -4,3 +4,4 @@ node_modules
 assets/vendor
 /neo4j*
 /.idea
+*.iml

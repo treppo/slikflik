@@ -1,16 +1,14 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
 
-gem 'sinatra', '~> 1.4.4'
+ruby '~> 2.5'
+
+gem 'sinatra'
 gem 'neography'
 gem 'slim'
 gem 'multi_json'
-gem 'oj', platforms: :ruby
+gem 'oj'
 gem 'faraday'
-gem 'typhoeus', platforms: :ruby
-gem 'rubysl', platforms: :rbx
-gem 'racc', platforms: :rbx
-gem 'rubinius-coverage', platforms: :rbx
+gem 'typhoeus'
 gem 'tilt-jbuilder', require: 'tilt/jbuilder'
 
 group :production, :development do
@@ -29,9 +27,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'coveralls'
-  gem 'simplecov'
-  gem 'minitest', '5.2.1'
+  gem 'minitest'
   gem 'minitest-spec-context'
   gem "rack-test", require: "rack/test"
   gem 'capybara'
