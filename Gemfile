@@ -19,6 +19,7 @@ group :development do
   gem 'guard'
   gem 'guard-minitest'
   gem 'guard-bundler'
+  gem 'terminal-notifier-guard'
   gem 'sass'
 end
 

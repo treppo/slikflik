@@ -1,5 +1,3 @@
-notification :tmux
-
 guard :minitest, include: ['lib', 'spec'] do
   watch('slikflik.rb') { 'spec/acceptance/slikflik_spec.rb' }
   watch('spec/acceptance/application_runner.rb') { 'spec/acceptance/slikflik_spec.rb' }
