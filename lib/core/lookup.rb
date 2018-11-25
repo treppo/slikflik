@@ -1,5 +1,5 @@
-require "encyclopedia"
-require "repository"
+require_relative "../encyclopedia/encyclopedia"
+require_relative "repository"
 
 class Lookup
   def initialize(args)

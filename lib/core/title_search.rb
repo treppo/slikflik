@@ -1,4 +1,4 @@
-require "encyclopedia"
+require_relative "../encyclopedia/encyclopedia"
 
 class TitleSearch
   def initialize(args)

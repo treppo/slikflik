@@ -1,5 +1,5 @@
 require "spec_helper"
-require "encyclopedia"
+require "encyclopedia/encyclopedia"
 require "interfaces/encyclopedia"
 
 describe Encyclopedia do

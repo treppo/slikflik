@@ -1,6 +1,6 @@
 require "spec_helper"
-require "title_search"
-require "suggestion"
+require "core/title_search"
+require "core/suggestion"
 require "builders/movie_builder"
 
 describe TitleSearch do

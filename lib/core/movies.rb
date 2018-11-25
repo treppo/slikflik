@@ -1,5 +1,5 @@
-require "fetcher"
-require "repository"
+require_relative "fetcher"
+require_relative "repository"
 
 class Movies
   def initialize(args)

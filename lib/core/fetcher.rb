@@ -1,5 +1,5 @@
-require "lookup"
-require "repository"
+require_relative "lookup"
+require_relative "repository"
 
 class Fetcher
   def initialize(args)

@@ -1,5 +1,5 @@
 require "spec_helper"
-require "graph"
+require "db/graph"
 require "test_database_connection"
 
 describe Graph do

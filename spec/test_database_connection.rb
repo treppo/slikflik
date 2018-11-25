@@ -1,4 +1,4 @@
-require "neography_connection"
+require "db/neography_connection"
 
 class TestDatabaseConnection
   extend Forwardable

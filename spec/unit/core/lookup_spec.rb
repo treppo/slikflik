@@ -1,5 +1,5 @@
 require "spec_helper"
-require "lookup"
+require "core/lookup"
 require "interfaces/lookup"
 require "doubles/encyclopedia"
 

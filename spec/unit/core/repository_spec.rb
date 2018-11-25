@@ -1,5 +1,5 @@
 require "spec_helper"
-require "repository"
+require "core/repository"
 require "interfaces/repository"
 require "builders/movie_builder"
 

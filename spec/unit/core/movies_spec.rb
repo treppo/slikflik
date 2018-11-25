@@ -1,5 +1,5 @@
 require "spec_helper"
-require "movies"
+require "core/movies"
 require "doubles/fetcher"
 require "interfaces/connectable"
 

@@ -1,4 +1,4 @@
-require "neography_connection"
+require_relative "neography_connection"
 
 class Graph
   def find_movies(ids)

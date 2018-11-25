@@ -1,4 +1,4 @@
-require "graph"
+require_relative "../db/graph"
 
 class Repository
   def initialize(args = {})

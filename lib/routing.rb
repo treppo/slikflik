@@ -4,11 +4,11 @@ require "tilt/jbuilder"
 require "sinatra/jbuilder"
 require "slim"
 
-require "movies"
-require "ideas"
-require "title_search"
+require_relative "core/movies"
+require_relative "core/ideas"
+require_relative "core/title_search"
 
-class SlikFlik < Sinatra::Base
+class Routing < Sinatra::Base
   set :poster_url, Proc.new { Encyclopedia.new.poster_url }
 
   get "/" do

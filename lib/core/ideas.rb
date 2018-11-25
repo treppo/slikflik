@@ -1,5 +1,5 @@
-require "fetcher"
-require "repository"
+require_relative "fetcher"
+require_relative "repository"
 
 class Ideas
   def initialize(args)

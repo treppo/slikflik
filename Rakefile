@@ -15,7 +15,7 @@ namespace :db do
     args.with_defaults environment: 'development'
     ENV['RACK_ENV'] = args[:environment]
 
-    require_relative 'lib/neography_connection'
+    require_relative 'lib/db/neography_connection'
     NeographyConnection.db.create_node_index 'movies'
   end
 end

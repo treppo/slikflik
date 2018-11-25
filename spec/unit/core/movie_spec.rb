@@ -1,5 +1,5 @@
 require "spec_helper"
-require "movie"
+require "core/movie"
 
 describe Movie do
   def properties(release_date)

@@ -1,9 +1,6 @@
-lib = File.expand_path(File.join(File.dirname(__FILE__), 'lib'))
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-
-require './slikflik'
+require_relative "lib/routing"
 
 use Rack::Deflater
 $stdout.sync = true
 
-run SlikFlik
+run Routing

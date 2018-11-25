@@ -1,5 +1,5 @@
 require "spec_helper"
-require "fetcher"
+require "core/fetcher"
 require "doubles/repository"
 require "interfaces/lookup"
 

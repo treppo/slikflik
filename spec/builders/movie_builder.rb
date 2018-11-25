@@ -1,4 +1,4 @@
-require "movie"
+require "core/movie"
 
 class MovieBuilder
   def initialize(args)

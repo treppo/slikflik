@@ -1,5 +1,5 @@
 require "spec_helper"
-require "ideas"
+require "core/ideas"
 require "interfaces/findable"
 
 describe Ideas do

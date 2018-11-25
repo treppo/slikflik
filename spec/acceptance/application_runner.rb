@@ -1,4 +1,4 @@
-require_relative "../../slikflik"
+require_relative "../../lib/routing"
 require "minitest/assertions"
 require "capybara"
 require "capybara/dsl"
@@ -19,7 +19,7 @@ class ApplicationRunner
   end
 
   def app
-    SlikFlik.new
+    Routing.new
   end
 
   def submit_movies(*movies)

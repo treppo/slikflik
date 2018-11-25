@@ -1,8 +1,8 @@
 require "faraday"
 require "multi_json"
-require "suggestion"
-require "movie"
-require "poster_url"
+require_relative "../core/suggestion"
+require_relative "../core/movie"
+require_relative "../core/poster_url"
 
 class Encyclopedia
   def entries(ids)
@@ -20,8 +20,8 @@ class Encyclopedia
   def poster_url
     image_config = parse(configuration_request).fetch :images
     base_url = image_config.fetch(:base_url)
-    PosterURL.new small: base_url + image_config.fetch(:poster_sizes).fetch(0),
-      large: base_url + image_config.fetch(:poster_sizes).fetch(1)
+    PosterURL.new(small: base_url + image_config.fetch(:poster_sizes).fetch(0),
+                  large: base_url + image_config.fetch(:poster_sizes).fetch(1))
   end
 
   private

@@ -22,7 +22,7 @@ module.exports = (grunt) ->
       slikflik:
         options:
           # sourceMapIn: 'public/lib.js.map'
-          sourceMap: 'public/slikflik.js.map'
+          sourceMap: 'public/core.js.map'
           sourceMappingURL: 'slikflik.js.map'
           sourceMapPrefix: 1
 
@@ -36,13 +36,13 @@ module.exports = (grunt) ->
     sass:
       slikflik:
         files:
-          'public/slikflik.css': 'assets/css/slikflik.sass'
+          'public/slikflik.css': 'assets/css/core.sass'
 
     watch:
       src:
         files: [
           'assets/js/*.coffee'
-          'assets/css/slikflik.sass'
+          'assets/css/core.sass'
           'Gruntfile.coffee'
         ]
         tasks: ['build']
