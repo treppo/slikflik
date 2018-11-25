@@ -1,11 +1,10 @@
-guard :minitest, include: ['lib', 'spec'] do
-  watch('slikflik.rb') { 'spec/acceptance/slikflik_spec.rb' }
-  watch('spec/acceptance/application_runner.rb') { 'spec/acceptance/slikflik_spec.rb' }
-  watch(%r{^lib/(.+)\.rb}) { |m| "spec/unit/#{m[1]}_spec.rb" }
-  watch(%r{^spec/(.*)\/?(.*)_spec\.rb})
-  watch(%r{^spec/spec_helper\.rb}) { 'spec' }
+guard :minitest, include: [:lib, :spec] do
+  watch('slikflik.rb') { :spec }
+  watch(%r{^lib/.+\.rb}) { :spec }
+  watch(%r{^views/.+}) { :spec }
+  watch(%r{^spec/.+\.rb}) { :spec }
 end
 
-guard 'bundler' do
+guard :bundler do
   watch('Gemfile')
 end
