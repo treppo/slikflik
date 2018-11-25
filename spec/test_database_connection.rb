@@ -12,7 +12,7 @@ class TestDatabaseConnection
   end
 
   def reset
-    db.execute_query("START n0=node(0),nx=node(*) MATCH n0-[r0?]-(),nx-[rx?]-() WHERE nx <> n0 DELETE r0,rx,nx")
+    db.execute_query("MATCH (n) DETACH DELETE n")
   end
 
   def setup_index

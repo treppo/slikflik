@@ -20,7 +20,7 @@ class Graph
     properties = symbolize_keys unpack_connection_properties database.execute_query "
       START a=node:movies(id = '#{ids[0]}'),
             b=node:movies(id = '#{ids[1]}')
-      CREATE a-[r:CONNECTION { weight: 1 }]-b
+      CREATE (a)-[r:CONNECTION { weight: 1 }]->(b)
       RETURN r
     "
 
@@ -85,7 +85,7 @@ class Graph
     database.execute_query "
       START a=node:movies(id = '#{ids[0]}'),
             b=node:movies(id = '#{ids[1]}')
-      MATCH a-[r:CONNECTION]-b
+      MATCH (a)-[r:CONNECTION]-(b)
       RETURN r
     "
   end
