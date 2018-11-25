@@ -1,4 +1,4 @@
-require 'movie'
+require "movie"
 
 class Suggestion < Movie
 end

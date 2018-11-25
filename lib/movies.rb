@@ -1,9 +1,8 @@
-require 'fetcher'
-require 'repository'
+require "fetcher"
+require "repository"
 
 class Movies
-
-  def initialize args
+  def initialize(args)
     @ids = args.fetch :ids
     @repository = args.fetch :repository, Repository.new
     @fetcher = args.fetch :fetcher, Fetcher.new(repository: @repository, ids: @ids)

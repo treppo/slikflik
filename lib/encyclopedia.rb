@@ -1,18 +1,17 @@
-require 'faraday'
-require 'multi_json'
-require 'suggestion'
-require 'movie'
-require 'poster_url'
+require "faraday"
+require "multi_json"
+require "suggestion"
+require "movie"
+require "poster_url"
 
 class Encyclopedia
-
-  def entries ids
+  def entries(ids)
     ids.map do |id|
       Movie.new parse movie_retrieval_request id
     end
   end
 
-  def search_title title
+  def search_title(title)
     parse(title_search_request title).fetch(:results).map do |result|
       Suggestion.new result
     end
@@ -27,20 +26,20 @@ class Encyclopedia
 
   private
 
-  def parse response
+  def parse(response)
     MultiJson.load response, symbolize_keys: true
   end
 
-  def movie_retrieval_request id
-    connection.get("movie/#{id}", api_key: ENV['TMDB_API_KEY']).body
+  def movie_retrieval_request(id)
+    connection.get("movie/#{id}", api_key: ENV["TMDB_API_KEY"]).body
   end
 
-  def title_search_request title
-    connection.get("search/movie", query: title, api_key: ENV['TMDB_API_KEY']).body
+  def title_search_request(title)
+    connection.get("search/movie", query: title, api_key: ENV["TMDB_API_KEY"]).body
   end
 
   def configuration_request
-    connection.get('configuration', api_key: ENV['TMDB_API_KEY']).body
+    connection.get("configuration", api_key: ENV["TMDB_API_KEY"]).body
   end
 
   def connection

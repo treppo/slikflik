@@ -1,8 +1,7 @@
-require 'neography'
+require "neography"
 
 class NeographyConnection
   class << self
-
     def db
       Neography::Rest.new(url)
     end
@@ -14,11 +13,11 @@ class NeographyConnection
     end
 
     def from_env
-      ENV['NEO4J_URL']
+      ENV["NEO4J_URL"]
     end
 
     def from_config
-      YAML.load_file('config/database.yml')[ENV['RACK_ENV']]['url']
+      YAML.load_file("config/database.yml")[ENV["RACK_ENV"]]["url"]
     end
   end
 end

@@ -1,7 +1,7 @@
-require 'movie'
+require "movie"
 
 class MovieBuilder
-  def initialize args
+  def initialize(args)
     @ids = args.fetch :ids, [1]
     @class = args.fetch :class, Movie
   end
@@ -16,7 +16,7 @@ class MovieBuilder
         id: id,
         title: "title#{id}",
         release_date: "200#{id}-1-1",
-        poster_path: "poster#{id}.jpg"
+        poster_path: "poster#{id}.jpg",
       }
     end
   end

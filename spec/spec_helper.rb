@@ -1,14 +1,14 @@
-ENV['RACK_ENV'] = 'test'
-ENV['TMDB_API_KEY'] ||= '12345'
+ENV["RACK_ENV"] = "test"
+ENV["TMDB_API_KEY"] ||= "12345"
 
-require 'vcr_setup'
+require "vcr_setup"
 
-require 'test_database_connection'
+require "test_database_connection"
 TestDatabaseConnection.new.setup_index
 
-require 'minitest/pride'
-require 'minitest/autorun'
-require 'minitest-spec-context'
+require "minitest/pride"
+require "minitest/autorun"
+require "minitest-spec-context"
 
 Minitest.after_run do
   TestDatabaseConnection.new.teardown_index

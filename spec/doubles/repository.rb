@@ -1,9 +1,9 @@
 class RepositoryDouble
-  def initialize response = nil
+  def initialize(response = nil)
     @response = response
   end
 
-  def find ids
+  def find(ids)
     @response
   end
 
@@ -13,4 +13,3 @@ class RepositoryDouble
   def connect
   end
 end
-

@@ -1,3 +1,3 @@
-require 'ostruct'
+require "ostruct"
 
 class PosterURL < OpenStruct; end

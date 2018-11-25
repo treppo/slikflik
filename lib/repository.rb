@@ -1,22 +1,21 @@
-require 'graph'
+require "graph"
 
 class Repository
-
-  def initialize args = {}
+  def initialize(args = {})
     @graph = args.fetch :graph, Graph.new
   end
 
-  def find ids
-    empty_response = { found: [], missing: [] }
+  def find(ids)
+    empty_response = {found: [], missing: []}
     ids.zip(get_nodes(ids)).inject(empty_response, &divide_found_and_missing)
   end
 
-  def create movies
+  def create(movies)
     # TODO call properties instead of to_h
     properties_to_movies graph.create movies.map(&:to_h)
   end
 
-  def connect movies
+  def connect(movies)
     response = graph.find_connection movies.map(&:to_h)
 
     if response.empty?
@@ -27,7 +26,7 @@ class Repository
     end
   end
 
-  def find_neighbors movies
+  def find_neighbors(movies)
     properties_to_movies graph.find_neighbors(movies.map(&:id))
   end
 
@@ -35,12 +34,12 @@ class Repository
 
   attr_reader :graph
 
-  def properties_to_movies props
-    props.map { |properties| Movie.new properties}
+  def properties_to_movies(props)
+    props.map { |properties| Movie.new properties }
   end
 
   def divide_found_and_missing
-    ->(response, (id, properties)) do
+    -> (response, (id, properties)) do
       if properties.empty?
         response[:missing] << id
       else
@@ -50,7 +49,7 @@ class Repository
     end
   end
 
-  def get_nodes ids
+  def get_nodes(ids)
     graph.find_movies ids
   end
 end

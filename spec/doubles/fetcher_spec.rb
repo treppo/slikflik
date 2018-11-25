@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'doubles/fetcher'
-require 'interfaces/fetcher'
+require "spec_helper"
+require "doubles/fetcher"
+require "interfaces/fetcher"
 
 describe FetcherDouble do
   include FetcherInterfaceTest
@@ -9,4 +9,3 @@ describe FetcherDouble do
     @subject = FetcherDouble.new
   end
 end
-

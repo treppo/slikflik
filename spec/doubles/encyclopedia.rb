@@ -1,6 +1,5 @@
 class EncyclopediaDouble
-
-  def entries ids
+  def entries(ids)
     ids.map { |id| "movie#{id}" }
   end
 end

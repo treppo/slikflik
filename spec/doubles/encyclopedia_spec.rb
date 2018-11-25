@@ -1,8 +1,7 @@
-require 'doubles/encyclopedia'
-require 'interfaces/encyclopedia'
+require "doubles/encyclopedia"
+require "interfaces/encyclopedia"
 
 describe EncyclopediaDouble do
-
   include EncyclopediaInterfaceTest
 
   before do

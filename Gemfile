@@ -19,8 +19,10 @@ group :development do
   gem 'guard'
   gem 'guard-minitest'
   gem 'guard-bundler'
+  gem 'guard-shell'
   gem 'terminal-notifier-guard'
   gem 'sass'
+  gem 'rufo'
 end
 
 group :development, :test do

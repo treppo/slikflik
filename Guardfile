@@ -8,3 +8,7 @@ end
 guard :bundler do
   watch('Gemfile')
 end
+
+guard :shell, all_on_start: true do
+  watch(%r{.*\.rb}) { `bundle exec rufo .` }
+end

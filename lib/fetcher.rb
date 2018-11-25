@@ -1,9 +1,8 @@
-require 'lookup'
-require 'repository'
+require "lookup"
+require "repository"
 
 class Fetcher
-
-  def initialize args
+  def initialize(args)
     @repository = args.fetch :repository, Repository.new
     @ids = args.fetch :ids
     @lookup = args.fetch :lookup_class, Lookup

@@ -1,8 +1,7 @@
-require 'encyclopedia'
+require "encyclopedia"
 
 class TitleSearch
-
-  def initialize args
+  def initialize(args)
     @title = args.fetch :title
     @encyclopedia = args.fetch :encyclopedia, Encyclopedia.new
   end

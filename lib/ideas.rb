@@ -1,8 +1,8 @@
-require 'fetcher'
-require 'repository'
+require "fetcher"
+require "repository"
 
 class Ideas
-  def initialize args
+  def initialize(args)
     @ids = args.fetch :ids
     @movie_repository = args.fetch :movie_repository, Repository.new
     @fetcher = args.fetch :fetcher, Fetcher.new(ids: @ids, movie_repository: movie_repository)

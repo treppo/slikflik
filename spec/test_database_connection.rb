@@ -1,7 +1,6 @@
-require 'neography_connection'
+require "neography_connection"
 
 class TestDatabaseConnection
-
   extend Forwardable
 
   attr_reader :db
@@ -17,10 +16,10 @@ class TestDatabaseConnection
   end
 
   def setup_index
-    db.create_node_index 'movies'
+    db.create_node_index "movies"
   end
 
   def teardown_index
-    db.drop_node_index 'movies'
+    db.drop_node_index "movies"
   end
 end

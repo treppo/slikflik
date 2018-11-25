@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'doubles/repository'
-require 'interfaces/repository'
+require "spec_helper"
+require "doubles/repository"
+require "interfaces/repository"
 
 describe RepositoryDouble do
   include RepositoryInterfaceTest
