@@ -24,25 +24,21 @@ class ApplicationRunner
 
   def submit_movies(*movies)
     id1, id2 = movies.map { |movie| movie[:id] }
-    VCR.use_cassette :tmdb_configuration_lookup do
-      VCR.use_cassette :tmdb_lookup do
-        visit "/"
-        fill_in "First Movie", with: id1
-        fill_in "Second Movie", with: id2
-        click_on "Get recommendations"
-      end
+
+    with_fixtures do
+      visit "/"
+      fill_in "First Movie", with: id1
+      fill_in "Second Movie", with: id2
+      click_on "Get recommendations"
     end
   end
 
   def submit_movies_with_ajax(*movies)
     ids = movies.map { |movie| movie[:id] }
 
-    VCR.use_cassette :tmdb_configuration_lookup do
-      VCR.use_cassette :tmdb_lookup do
-        post "/ideas", {movies: ids}, {xhr: true}
-
-        follow_redirect!
-      end
+    with_fixtures do
+      post "/ideas", {movies: ids}, {xhr: true}
+      follow_redirect!
     end
   end
 
@@ -59,12 +55,10 @@ class ApplicationRunner
   end
 
   def submit_title(title)
-    VCR.use_cassette :tmdb_configuration_lookup do
-      VCR.use_cassette :tmdb_title_search do
-        visit "/"
-        fill_in "First movie title", with: title
-        click_on "Search"
-      end
+    with_fixtures do
+      visit "/"
+      fill_in "First movie title", with: title
+      click_on "Search"
     end
   end
 
@@ -73,10 +67,8 @@ class ApplicationRunner
   end
 
   def request_suggestions_as_json(title)
-    VCR.use_cassette :tmdb_configuration_lookup do
-      VCR.use_cassette :tmdb_title_search do
-        get "/suggestions.json", title: title
-      end
+    with_fixtures do
+      get "/suggestions.json", title: title
     end
   end
 
@@ -85,6 +77,16 @@ class ApplicationRunner
   end
 
   private
+
+  def with_fixtures
+    VCR.use_cassette :tmdb_configuration_lookup do
+      VCR.use_cassette :tmdb_title_search do
+        VCR.use_cassette :tmdb_lookup do
+          yield
+        end
+      end
+    end
+  end
 
   def last_json_response
     MultiJson.load last_response.body, symbolize_keys: true

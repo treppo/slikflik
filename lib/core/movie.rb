@@ -4,8 +4,8 @@ class Movie
   def initialize(properties)
     @id = properties.fetch :id
     @title = properties.fetch :title
-    @release_date = properties.fetch :release_date
-    @poster_path = properties.fetch :poster_path, ""
+    @release_date = properties.fetch(:release_date)
+    @poster_path = properties.fetch(:poster_path, "") || ""
   end
 
   def to_h

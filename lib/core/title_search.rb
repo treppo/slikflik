@@ -7,7 +7,7 @@ class TitleSearch
   end
 
   def suggestions
-    encyclopedia.search_title title
+    encyclopedia.search_title(title)
   end
 
   private

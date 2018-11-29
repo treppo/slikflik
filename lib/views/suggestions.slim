@@ -2,7 +2,7 @@ ul
   - for suggestion in suggestions do
     li.suggestion
       .suggestion__poster
-        img src=(poster_url.small + suggestion.poster_path)
+        img src=(poster_url.small + suggestion.poster_path) alt="Poster for #{suggestion.title}"
       .suggestion__title= suggestion.title
       .suggestion__id= suggestion.id
       .suggestion__year= suggestion.year
